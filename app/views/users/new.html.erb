@@ -1,0 +1,41 @@
+<h1>  Set Admin Account</h1>   
+<%= form_for @user  do |f| %>
+    <% if flash[:error] != nil %>
+        <div id="error_explanation">
+            <h2>There were some errors:</h2>
+            <ul>
+                <% flash[:error].each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+    <%= f.label :admin%>
+    <%= f.check_box :admin, {}, true, false %> <br />
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+    
+    <%= f.label :address%>
+    <%= f.text_field :address %><br>
+
+    <%= f.label :coins%>
+    <%= f.text_field :coins %><br>
+
+    <%= f.label :email %>
+    <%= f.text_field :email %><br>
+
+    <%= f.label :username %>
+    <%= f.text_field :username %><br>
+
+    <%= f.label :password %>
+    <%= f.password_field :password%><br>
+
+    <%= f.label :confirm_password %>
+    <%= f.password_field  :password_confirmation%><br>
+
+    <br> <br>
+  <br> <br>
+
+    <%= f.submit %>
+  <% end %>
+

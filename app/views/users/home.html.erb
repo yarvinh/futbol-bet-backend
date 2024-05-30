@@ -1,0 +1,13 @@
+<nav>
+ <% if User.all.empty? %>
+    <%= link_to('Sign Up', '/users/new') %>
+    <%end%>
+    <%= link_to('Sign In', '/login') %>
+</nav>
+
+
+
+
+
+
+

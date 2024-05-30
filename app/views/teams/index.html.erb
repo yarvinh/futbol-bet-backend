@@ -1,0 +1,68 @@
+<ul>
+<h3> Premier League </h3>
+<% @teams.each do |team| %>
+    <% if team.league === 'Premier League' %>
+        <li> 
+           <p>Club: <%= team.fc%></p>
+           <p>Stadium: <%= team.stadium%></p>
+           <p> League: <%= team.league%> </p>
+           <p> Picture url: <%=team.logo_url%></p>
+    _____________________________________________________________________
+        </li>
+    <%end%>
+<% end %>
+
+<h3> La Liga </h3>
+<% @teams.each do |team| %>
+    <% if team.league === 'La Liga' %>
+        <li> 
+           <p>Club: <%= team.fc%></p>
+           <p>Stadium: <%= team.stadium%></p>
+           <p> League: <%= team.league%> </p>
+           <p> Picture url: <%=team.logo_url%></p>
+    _____________________________________________________________________
+        </li>
+    <%end%>
+<% end %>
+<h3>Serie A</h3>
+<% @teams.each do |team| %>
+    <% if team.league === 'Serie A' %>
+        <li> 
+           <p>Club: <%= team.fc%></p>
+           <p>Stadium: <%= team.stadium%></p>
+           <p> League: <%= team.league%> </p>
+           <p> Picture url: <%=team.logo_url%></p>
+    _____________________________________________________________________
+        </li>
+    <%end%>
+<% end %>
+
+<h3>Bundesliga</h3>
+<% @teams.each do |team| %>
+    <% if team.league === 'Bundesliga' %>
+        <li> 
+           <p>Club: <%= team.fc%></p>
+           <p>Stadium: <%= team.stadium%></p>
+           <p> League: <%= team.league%> </p>
+           <p> Picture url: <%=team.logo_url%></p>
+    _____________________________________________________________________
+        </li>
+    <%end%>
+<% end %>
+
+<h3>Ligue 1</h3>
+<% @teams.each do |team| %>
+    <% if team.league === 'Ligue 1' %>
+        <li> 
+           <p>Club: <%= team.fc%></p>
+           <p>Stadium: <%= team.stadium%></p>
+           <p> League: <%= team.league%> </p>
+           <p> Picture url: <%=team.logo_url%></p>
+    _____________________________________________________________________
+        </li>
+    <%end%>
+<% end %>
+
+
+
+</ul>

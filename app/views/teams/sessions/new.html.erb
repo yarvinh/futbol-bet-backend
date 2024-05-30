@@ -1,0 +1,14 @@
+<h1> Singin </h1>
+
+  <%= form_tag adminlogin_path do %>
+    <label>User Name:</label><br>
+    <%= text_field_tag :'user[username]' %><br>
+   
+    <label>Password:</label><br>
+    <%= password_field_tag  :'user[password]' %><br>
+   
+    <%= submit_tag "LogIn" %>
+  <% end %>
+
+  <h3><%= flash[:error] %></h3>
+  <p> <%= flash[:message] %></p>
