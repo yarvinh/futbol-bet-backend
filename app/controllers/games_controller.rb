@@ -4,6 +4,7 @@ class GamesController < ApplicationController
         game = Game.find(params[:id])
         render json:GamesSerializer.new(game).to_serialized_json
     end
+    
     def index
         if user_id = session[:user_id]
           if User.find(user_id).admin

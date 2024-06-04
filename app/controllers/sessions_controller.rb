@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
             user = User.find(session[:user_id])
             render json: {logged_in: true, user: user}
         else
-            render json: {logged_in: false, messages: ['No user, please login or signup' ]}
+            render json: {logged_in: false, errors_or_messages: {from: "login", errors: ['No user, please login or signup' ]}}
        end
 
     end  
@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
             login!  
             render json: {logged_in: true, user: @user }
         else
-            render json: {logged_in: false, status: 401, messages: ['wrong password or username'] }
+            render json: {logged_in: false, status: 401, errors_or_messages: { from: "login", errors: ['wrong password or username'] }}
         end  
 
     end
@@ -50,6 +50,6 @@ class SessionsController < ApplicationController
 
     def log_out
         session.clear
-        render status: 200, json: { logged_in: false , messages: ["logout succesfull "] }
+        render status: 200, json: { logged_in: false , error_or_messages: { from: "logout", msg: ["logout succesfull "] }}
     end
 end
