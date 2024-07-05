@@ -10,31 +10,31 @@
     
       options = {
         include: {
-          team_events: {
-            include:{
-              team: {}
-            }
-          },
+          # team_events: {
+          #   include:{
+          #     team: {}
+          #   }
+          # },
           teams: {},
-          likes: {},
+          # likes: {},
           
           bets: {
-            include: {
-              user: {},
-              team: {}
-            }
+            # include: {
+            #   user: {},
+            #   team: {}
+            # }
           },
-          comments_by_date: {
-                      include:{
-            user: {},
-            replies_by_date: {
-              include: {
-                likes: {},
-                user: {}
-              }
-            }
-          }
-          }      
+          # comments_by_date: {
+          #             include:{
+          #   user: {},
+          #   replies_by_date: {
+          #     include: {
+          #       likes: {},
+          #       user: {}
+          #     }
+          #   }
+          # }
+          # }      
         },
    
         except: [:updated_at, :created_at]

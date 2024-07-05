@@ -15,7 +15,7 @@ class BetsController < ApplicationController
             user.coins -=  bet.amount.to_i
             user.save
         end
-        render json: GamesSerializer.new(Game.upcoming_games).to_serialized_json
+        render json: GameSerializer.new(game).to_serialized_json
     end
 end
 

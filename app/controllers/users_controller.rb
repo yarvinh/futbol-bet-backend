@@ -35,7 +35,7 @@ class UsersController < ApplicationController
             login!
             render json: {logged_in: true, user: @user }
           else
-             render status: 200, json: { logged_in: false , error_or_messages:{from: "create_user", errors: @user.errors.full_messages }}
+             render status: 200, json: { logged_in: false , errors_or_messages:{from: "create_user", errors: @user.errors.full_messages }}
           end
         end
       end

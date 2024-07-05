@@ -50,6 +50,6 @@ class SessionsController < ApplicationController
 
     def log_out
         session.clear
-        render status: 200, json: { logged_in: false , error_or_messages: { from: "logout", msg: ["logout succesfull "] }}
+        render status: 200, json: { logged_in: false , errors_or_messages: { from: "logout", msg: ["logout succesfull "] }}
     end
 end

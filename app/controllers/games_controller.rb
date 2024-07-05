@@ -2,7 +2,7 @@ class GamesController < ApplicationController
  
     def show 
         game = Game.find(params[:id])
-        render json:GamesSerializer.new(game).to_serialized_json
+        render json:GameSerializer.new(game).to_serialized_json
     end
     
     def index

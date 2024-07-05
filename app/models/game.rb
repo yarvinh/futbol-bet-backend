@@ -7,6 +7,7 @@ class Game < ApplicationRecord
     has_many :users, through: :bets
     has_many :teams, through: :team_events
     attr_accessor :team_1, :team_2, :ninety_minutes
+    
     def comments_by_date()
         self.comments.reverse{|comment|
             comment.created_at

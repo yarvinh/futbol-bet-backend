@@ -7,7 +7,6 @@ class Comment < ApplicationRecord
     def replies_by_date()
         self.replies.reverse{|reply|
             reply.created_at
-    
         }
     end
 end

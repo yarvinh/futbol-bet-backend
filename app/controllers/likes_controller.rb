@@ -13,23 +13,30 @@ class LikesController < ApplicationController
        game.likes_total = likes
        game.save
       elsif comment && !comment.likes.find_by(user_id: params[:user_id])  
+        like.game = game
         like.comment = comment
         like.save
       elsif reply && !reply.likes.find_by(user_id: params[:user_id]) 
+        like.game = game
         like.reply = reply
         like.save
       end
-    render json:GamesSerializer.new(Game.upcoming_games).to_serialized_json
+    render json:LikesSerializer.new(game.likes).to_serialized_json
     end
 
     def destroy
+      like = Like.find_by_id(params[:id])
+      game = like.game
       if params[:game_id] || params[:comment_id] || params[:reply_id]
-        like = Like.find_by(id: params[:id])
         if like
           like.delete
         end
       end
-      render json:GamesSerializer.new(Game.upcoming_games).to_serialized_json
+      if game
+       render json:LikesSerializer.new(game.likes).to_serialized_json
+      else
+        render json: {logged_in: false, status: 401, errors_or_messages: { from: "delete_like", errors: ["This like don't exist."] }}
+      end
     end
 
 end
