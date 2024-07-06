@@ -25,18 +25,15 @@ class LikesController < ApplicationController
     end
 
     def destroy
-      like = Like.find_by_id(params[:id])
+      like = current_user.likes.find_by_id(params[:id])
       game = like.game
-      if params[:game_id] || params[:comment_id] || params[:reply_id]
-        if like
-          like.delete
-        end
-      end
-      if game
-       render json:LikesSerializer.new(game.likes).to_serialized_json
+      if like
+        like.delete
+        render json:LikesSerializer.new(game.likes).to_serialized_json
       else
         render json: {logged_in: false, status: 401, errors_or_messages: { from: "delete_like", errors: ["This like don't exist."] }}
       end
+
     end
 
 end
