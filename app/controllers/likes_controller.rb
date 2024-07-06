@@ -33,7 +33,6 @@ class LikesController < ApplicationController
       else
         render json: {logged_in: false, status: 401, errors_or_messages: { from: "delete_like", errors: ["This like don't exist."] }}
       end
-
     end
 
 end
