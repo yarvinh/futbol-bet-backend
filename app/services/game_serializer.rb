@@ -23,17 +23,17 @@ class GameSerializer
             }
           },
           
-          comments_by_date: {
-            include:{
-              user: {},
-              replies_by_date: {
-                include: {
-                  likes: {},
-                  user: {}
-              }
-            }
-          }
-          }      
+          # comments_by_date: {
+          #   include:{
+          #     user: {},
+          #     replies_by_date: {
+          #       include: {
+          #         likes: {},
+          #         user: {}
+          #     }
+          #   }
+          # }
+          # }      
         },
    
         except: [:updated_at, :created_at]

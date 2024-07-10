@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   resources :bets
   resources :teams
   resources :replies
-  resources :comments
   resources :users
-  resources :games 
+  # resources :comments
+  resources :games do
+    resources :comments
+  end
+  # get '/comments', to: 'comments#game_comments'
   # resources :sessions, only: [:create]
   patch 'close_event', to:  'games#close_event'
   patch '/reset', to: 'team_events#reset_event'
