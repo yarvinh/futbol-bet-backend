@@ -25,11 +25,12 @@ class LikesController < ApplicationController
     end
 
     def destroy
-      like = current_user.likes.find_by_id(params[:id])
+      like = current_user && current_user.likes.find_by_id(params[:id])
       
       if like
         like.delete
-        render json:{like_removed: true,comment_id: like.comment_id, game_id: like.game_id}
+        comment_id = like.comment && like.comment.id || like.reply && like.reply.comment_id 
+        render json:{like_removed: true,comment_id: comment_id, game_id: like.game_id, reply_id: like.reply_id}
       else
         render json: {like_removed: false, logged_in: false, status: 401, errors_or_messages: { from: "delete_like", errors: ["This like don't exist."] }}.to_json
       end

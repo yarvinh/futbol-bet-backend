@@ -9,4 +9,8 @@ class Comment < ApplicationRecord
             reply.created_at
         }
     end
+
+    def replies_total()
+        self.replies.length
+    end
 end

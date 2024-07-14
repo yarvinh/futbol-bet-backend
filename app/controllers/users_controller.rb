@@ -5,8 +5,8 @@ class UsersController < ApplicationController
       end
 
       def show  
-        if session[:user_id].to_s == params[:id].to_s
-          @user = User.find(params[:id])
+        if current_user
+          @user = current_user
         else
           redirect_to '/login'
         end
@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   
       def new 
          @user = User.new
-
       end
   
       def create  

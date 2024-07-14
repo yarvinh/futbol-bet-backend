@@ -1,7 +1,7 @@
 class RepliesController < ApplicationController
     def index 
       game = Game.find_by_id(params[:game_id])
-      comment = game && game.find_by_id(:comment_id)
+      comment = game && game.comments.find_by_id(params[:comment_id])
       if comment 
         render json:RepliesSerializer.new(comment.replies_by_date).to_serialized_json
       else
@@ -20,17 +20,18 @@ class RepliesController < ApplicationController
           reply.comment = comment
           reply.save
         end
-        render json:GameSerializer.new(game).to_serialized_json
+        render json:ReplySerializer.new(reply).to_serialized_json
     end
     
     def destroy
-        reply = Reply.find_by_id(params[:id])
-        game = replyreply.comment.game
-        if reply
+        user = current_user
+        reply = user && user.replies.find_by_id(params[:id])
+        if user && reply
           reply.likes.each{|e|e.delete}
           reply.delete
+          render json:{reply_removed: true, reply_id: params[:id].to_i, comment_id: params[:comment_id].to_i }.to_json
+        else
+          render json: {errors_or_messages: {from: 'delete_reply', errors: ["You are not authorize to delete this reply"]}}.to_json
         end
-        games = Game.all
-        render json:GameSerializer.new(game).to_serialized_json
     end
 end

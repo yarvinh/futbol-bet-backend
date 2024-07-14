@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   get "/" , to: 'users#home'
   resources :bets
   resources :teams
-  resources :replies
+  # resources :replies
   resources :users
   # resources :comments
   resources :games do
-    resources :comments
+    resources :comments do
+      resources :replies
+    end
   end
   # get '/comments', to: 'comments#game_comments'
   # resources :sessions, only: [:create]

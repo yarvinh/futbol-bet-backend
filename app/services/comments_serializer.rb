@@ -4,17 +4,21 @@ class CommentsSerializer
     end
 
     def to_serialized_json
+
         options = {
-            include: {
-            user: {},
-            likes: {},
-            replies_by_date: {
-              include: {
-                likes: {},
-                user: {}
-              }
-            }
-            }
+            include: [:user,:likes],
+            methods: :replies_total
+            # include: {
+            # user: {},
+            # likes: {},
+            
+            # replies_by_date: {
+            #   include: {
+            #     likes: {},
+            #     user: {}
+            #   }
+            # }
+            # }
         }
        @comments.to_json(options)
     end
