@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
     def index
+      comments_length = params[:comments_length].to_i
       game = Game.find_by_id(params[:game_id])
       comments = game.comments_by_date
-      render json:CommentsSerializer.new(comments).to_serialized_json
+      render json:CommentsSerializer.new(comments[comments_length .. comments_length + 9]).to_serialized_json
     end
 
     def create
