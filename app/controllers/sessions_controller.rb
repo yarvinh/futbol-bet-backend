@@ -1,11 +1,12 @@
 class SessionsController < ApplicationController
 
     def show
+        user = User.find_by_id(session[:user_id])
         if logged_in? 
             user = current_user
-            render json: {logged_in: true, user: user}
+            render json: {logged_in: true, user: user}.to_json
         else
-            render json: {logged_in: false, errors_or_messages: {from: "show_login", errors: ['No user, please login or signup' ]}}
+            render json: {logged_in: false, errors_or_messages: {from: "show_login", errors: ['No user, please login or signup' ]}}.to_json
        end
     end 
 
