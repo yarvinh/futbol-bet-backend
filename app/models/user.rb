@@ -2,7 +2,7 @@ class User < ApplicationRecord
     has_secure_password
     has_many :bets
     has_many :comments
-    has_many :replies, through: :comments
+    has_many :replies
     has_many :likes
     validates :username, :email,  presence: true
     validates :username, :email, uniqueness: true

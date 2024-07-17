@@ -12,7 +12,8 @@ class RepliesController < ApplicationController
     end
 
     def create
-        user = User.find_by_id(params[:user_id])
+        # user = User.find_by_id(params[:user_id])
+        user = current_user
         comment = Comment.find_by_id(params[:comment_id])
         game = comment.game
         if user && comment
@@ -27,6 +28,8 @@ class RepliesController < ApplicationController
     def destroy
         user = current_user
         reply = user && user.replies.find_by_id(params[:id])
+        # raise user.inspect
+        # raise reply.inspect
         if user && reply
           reply.likes.each{|e|e.delete}
           reply.delete

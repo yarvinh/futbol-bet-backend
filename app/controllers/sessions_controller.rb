@@ -22,11 +22,11 @@ class SessionsController < ApplicationController
     def create  
         @user = User.find_by(username: params[:user][:username])
         if @user && @user.authenticate(params[:user][:password])
-            login!
+            token = login!
             if @user.admin
               redirect_to user_path(@user)
             else    
-               render json: {logged_in: true, user: @user }
+               render json: {logged_in: true, user: @user , token: token}
             end
         else
             redirect_to "/adminlogin"
@@ -36,8 +36,8 @@ class SessionsController < ApplicationController
     def login
         @user = User.find_by(username: params[:user][:username])
         if @user && @user.authenticate(params[:user][:password])
-            login!  
-            render json: {logged_in: true, user: @user }
+            token = login!  
+            render json: {logged_in: true, user: @user, token: token }
         else
             render json: {logged_in: false, status: 401, errors_or_messages: { from: "login", errors: ['wrong password or username'] }}
         end  

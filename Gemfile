@@ -8,7 +8,7 @@ gem "rails", "~> 7.0.8", ">= 7.0.8.3"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
-gem 'jwt', '~> 1.5', '>= 1.5.4'
+gem 'jwt', '~> 2.8', '>= 2.8.2'
 # Use sqlite3 as the database for Active Record
 
 gem "sqlite3", "~> 1.4"
