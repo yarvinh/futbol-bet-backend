@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
 
     def show
-        user = User.find_by_id(session[:user_id])
-        if logged_in? 
+        if current_user && current_user.admin
+            @user = current_user
+        elsif logged_in? 
             user = current_user
             render json: {logged_in: true, user: user}.to_json
         else
@@ -23,14 +24,16 @@ class SessionsController < ApplicationController
         @user = User.find_by(username: params[:user][:username])
         if @user && @user.authenticate(params[:user][:password])
             token = login!
-            if @user.admin
-              redirect_to user_path(@user)
-            else    
-               render json: {logged_in: true, user: @user , token: token}
-            end
+        end
+         
+        if @user.admin
+            redirect_to user_path(@user)
+        elsif current_user  
+            render json: {logged_in: true, user: @user , token: token}
         else
             redirect_to "/adminlogin"
-        end   
+        end  
+
     end
 
     def login

@@ -1,4 +1,7 @@
 class TeamEventsController < ApplicationController
+    def index
+      @teams = Team.all
+    end
     def update
         event = TeamEvent.find_by_id(params[:id])
         game =  event.game

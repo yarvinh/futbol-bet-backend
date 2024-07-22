@@ -1,23 +1,15 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   resources :likes
   resources :team_events
   get "/" , to: 'users#home'
   resources :bets
   resources :teams
-  # resources :replies
   resources :users
-  # resources :comments
   resources :games do
     resources :comments do
       resources :replies
     end
   end
-  # get '/comments', to: 'comments#game_comments'
-  # resources :sessions, only: [:create]
   patch 'close_event', to:  'games#close_event'
   patch '/reset', to: 'team_events#reset_event'
   get '/login', to: 'sessions#new'

@@ -5,6 +5,7 @@ class CommentSerializer
 
     def to_serialized_json
         options = {
+            methods: :replies_total,
             include: {
             user: {},
             likes: {},

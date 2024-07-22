@@ -6,26 +6,19 @@ class GamesController < ApplicationController
     end
     
     def index
-        if user_id = session[:user_id]
-          if User.find(user_id).admin
-             @games = Game.all
-            
-          else
-            games = Game.upcoming_games
-            render json:GamesSerializer.new(games).to_serialized_json
-          end
-        else
-            games = Game.upcoming_games
-            render json:GamesSerializer.new(games).to_serialized_json
-        end    
+      user = current_user
+      if user && user.admin
+        @games = Game.all
+      else
+        games = Game.upcoming_games
+        render json:GamesSerializer.new(games).to_serialized_json
+      end 
     end
     
     def new 
-        if logged_in?
-          user = User.find(session[:user_id])
-          if User.find_by(admin: true).id === session[:user_id]
-            @game = Game.new
-          end
+        @user = current_user
+        if current_user && current_user.admin
+          @game = Game.new
         else
             redirect_to '/login'
         end
@@ -44,7 +37,6 @@ class GamesController < ApplicationController
  
         team_1_event.save
          
-        
         team_2 = Team.find(game_params[:team_2])
         team_2_event = TeamEvent.new
         team_2_event.team = team_2

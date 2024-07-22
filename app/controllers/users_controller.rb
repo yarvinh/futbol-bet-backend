@@ -5,7 +5,8 @@ class UsersController < ApplicationController
       end
 
       def show  
-        if current_user
+        # raise current_user.inspect
+        if current_user && current_user
           @user = current_user
         else
           redirect_to '/login'
