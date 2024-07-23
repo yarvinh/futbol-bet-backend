@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
     def show
-        if current_user && current_user.admin
+        if admin
             @user = current_user
         elsif logged_in? 
             user = current_user

@@ -6,19 +6,14 @@ class BetsController < ApplicationController
         game = Game.find_by_id(params[:game_id])
         user = current_user
 
-        if !params[:amount].include?("-") && user
-            bet = Bet.new(amount: params[:amount])
-            bet.team = team
-            bet.game = game
-            bet.user = user
-            bet.save
-            user.coins -=  bet.amount.to_i
-            user.save
-            render json: BetSerializer.new(bet).to_serialized_json
+        bet = Bet.create(amount: params[:amount], team: team, game: game, user: user)
+        if bet.valid? && !params[:amount].include?("-")
+          render json: BetSerializer.new(bet).to_serialized_json
+        elsif params[:amount].include?("-")
+            render json: {errors_or_messages: {from: "create_bet", errors: ["Please enter a valid number."] }}.to_json
         else
-            render json: {errors_or_messages: {from: "create_bet", errors: ["You are not athorize to bet", "Login or create an account"]}}
+          render json: {errors_or_messages: {from: "create_bet", errors: bet.errors.full_messages }}.to_json
         end
-       
     end
 end
 
