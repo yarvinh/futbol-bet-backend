@@ -11,7 +11,7 @@
       options = {
         include: {
           teams: {},
-          bets: {},   
+          bets: {}   
         },
    
         except: [:updated_at, :created_at]

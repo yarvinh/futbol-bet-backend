@@ -14,26 +14,15 @@ class GameSerializer
             }
           },
           teams: {},
-          likes: {},
+          likes: {}
           
-          bets: {
-            include: {
-              user: {},
-              team: {}
-            }
-          },
-          
-          # comments_by_date: {
-          #   include:{
+          # bets: {
+          #   include: {
           #     user: {},
-          #     replies_by_date: {
-          #       include: {
-          #         likes: {},
-          #         user: {}
-          #     }
+          #     team: {}
           #   }
-          # }
-          # }      
+          # },
+            
         },
    
         except: [:updated_at, :created_at]

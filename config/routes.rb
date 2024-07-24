@@ -2,10 +2,11 @@ Rails.application.routes.draw do
   resources :likes
   resources :team_events
   get "/" , to: 'users#home'
-  resources :bets
+  # resources :bets
   resources :teams
   resources :users
   resources :games do
+    resources :bets
     resources :comments do
       resources :replies
     end
