@@ -7,13 +7,15 @@ class BetsController < ApplicationController
       game = Game.find_by_id(params[:game_id])
       user = current_user
       bet = nil
+
       if game && user
-        game.bets.find_by(user_id: user.id)
+        bet = game.bets.find_by(user_id: user.id)
       end
+      
       if bet
         render json: BetSerializer.new(bet).to_serialized_json
       elsif user 
-        render json: {did_bet: false}.to_json
+        render json: {}.to_json
       else
         render json: {errors_or_messages: {from: "bet_index", msg: ["Please login to bet"] }}.to_json
       end

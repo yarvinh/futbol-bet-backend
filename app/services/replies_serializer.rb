@@ -5,13 +5,7 @@ class RepliesSerializer
 
     def to_serialized_json
         options = {
-            include: {
-                comment: {
-                    # only: [:comment_id]
-                },
-                user: {},
-                likes: {},
-            }
+            include: [:comment, :user, :likes]
         }
        @replies.to_json(options)
     end

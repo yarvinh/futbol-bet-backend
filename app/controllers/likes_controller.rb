@@ -1,32 +1,16 @@
 class LikesController < ApplicationController
     def create
-      @user = User.find(params[:user_id])
-      like = Like.new()
-      like.user = @user
-      game = Game.find_by_id(params[:game_id])
-      comment = Comment.find_by_id(params[:comment_id])
-      reply = Reply.find_by_id(params[:reply_id])
-      if game && !game.likes.find_by(user_id: params[:user_id])  
-       like.game = game
-       like.save
-       likes = game.likes.size
-       game.likes_total = likes
-       game.save
-      elsif comment && !comment.likes.find_by(user_id: params[:user_id])  
-        like.game = game
-        like.comment = comment
-        like.save
-      elsif reply && !reply.likes.find_by(user_id: params[:user_id]) 
-        like.game = game
-        like.reply = reply
-        like.save
+      @user = current_user
+      like = Like.create(user: @user, game_id: params[:game_id], comment_id: params[:comment_id],reply_id: params[:reply_id])
+      if like.valid?
+        render json:LikeSerializer.new(like).to_serialized_json
+      else
+        render json:{ errors_or_messages: { from: "create_like" , errors: like.errors.full_messages} }.to_json
       end
-    render json:LikeSerializer.new(like).to_serialized_json
     end
 
     def destroy
       like = current_user && current_user.likes.find_by_id(params[:id])
-      
       if like
         like.delete
         comment_id = like.comment && like.comment.id || like.reply && like.reply.comment_id 

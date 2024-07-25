@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
       render json:CommentsSerializer.new(comments[comments_length .. comments_length + 9]).to_serialized_json
     end
 
+    #must refactor
     def create
         game = Game.find(params[:game_id])
         user = current_user
@@ -21,17 +22,17 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        comment = Comment.find_by(id: params[:id])
-        game = comment.game
-        if comment && current_user
-          comment.replies.each{|e|
-            e.likes.each{|like|
-              like.delete
-            }
+      comment = Comment.find_by(id: params[:id])
+      game = comment.game
+      if comment && current_user
+        comment.replies.each{|e|
+          e.likes.each{|like|
+            like.delete
           }
-          comment.replies.each{|e|e.delete}
-          comment.likes.each{|e|e.delete}
-          comment.delete
+        }
+        comment.replies.each{|e|e.delete}
+        comment.likes.each{|e|e.delete}
+        comment.delete
       end
       if game
         render json:{comment_removed: true}.to_json

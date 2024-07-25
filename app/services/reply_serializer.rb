@@ -5,10 +5,7 @@ class ReplySerializer
 
     def to_serialized_json
         options = {
-            include: {
-                user: {},
-                likes: {},
-            }
+            include: [:user,:likes]
         }
        @reply.to_json(options)
     end

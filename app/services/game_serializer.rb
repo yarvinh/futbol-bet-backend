@@ -15,14 +15,6 @@ class GameSerializer
           },
           teams: {},
           likes: {}
-          
-          # bets: {
-          #   include: {
-          #     user: {},
-          #     team: {}
-          #   }
-          # },
-            
         },
    
         except: [:updated_at, :created_at]
