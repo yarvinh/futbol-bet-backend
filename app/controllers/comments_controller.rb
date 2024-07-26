@@ -6,15 +6,9 @@ class CommentsController < ApplicationController
       render json:CommentsSerializer.new(comments[comments_length .. comments_length + 9]).to_serialized_json
     end
 
-    #must refactor
     def create
-        game = Game.find(params[:game_id])
-        user = current_user
-        if user 
-          comment = Comment.new(comment: params[:comment])
-          comment.game = game
-          comment.user = user
-          comment.save
+        comment = Comment.create(comment_params)
+        if comment.valid? && current_user.id == comment_params[:user_id]
           render json:CommentSerializer.new(comment).to_serialized_json
         else
           render json: {errors_or_messages:{from: "create_comment", errors: ["Create an account or signin to comment"]}}.to_json
@@ -40,6 +34,12 @@ class CommentsController < ApplicationController
         render json:{errors_or_messages: {from: "delete_comment", errors: ["comment don't exist"]}}.to_json
       end
     end
+
+    private
+    def comment_params
+      params.require(:comment).permit(:comment, :user_id, :game_id)
+    end
+    
   
 
 end

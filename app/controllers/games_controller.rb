@@ -25,6 +25,7 @@ class GamesController < ApplicationController
     end
 
     def create
+
         @game =  Game.new(game_params)
         @game.time = Game.time_zone(params[:game][:date])
         @game.date = Game.date(params[:game][:date])
@@ -34,7 +35,6 @@ class GamesController < ApplicationController
         team_1_event = TeamEvent.new
         team_1_event.team = team_1
         team_1_event.game = @game
- 
         team_1_event.save
          
         team_2 = Team.find(game_params[:team_2])
