@@ -1,15 +1,15 @@
 
 class ApplicationController < ActionController::Base
-    
     skip_before_action :verify_authenticity_token
     helper_method :login!, :logged_in?, :current_user, :authorized_user?, :logout!
+    
 
     def login!
         if @user && @user.admin
             session[:user_id] = @user.id
         elsif @user
             payload = {:user_id => "user_#{@user.id}"}
-            JWT.encode payload  , 'testin_key'  , 'HS256'
+            JWT.encode payload,secret_key, 'HS256'
         end  
     end
 
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
         headers = request.headers['Authorization']
         authorization = headers && headers.split(" ")[1]
         begin 
-          JWT.decode authorization, 'testin_key', true, { algorithm: 'HS256' }
+          JWT.decode authorization, secret_key, true, { algorithm: 'HS256' }
         rescue JWT::DecodeError
           false
         end
@@ -47,5 +47,10 @@ class ApplicationController < ActionController::Base
 
     def logout!
          session.clear
+    end
+
+    private
+    def secret_key
+        Rails.application.credentials.dig(:web_token, :secret_key)
     end
 end
