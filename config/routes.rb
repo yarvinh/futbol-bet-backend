@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :images
   resources :likes
   resources :team_events
   get "/" , to: 'users#home'

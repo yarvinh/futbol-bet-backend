@@ -3,6 +3,7 @@ class Comment < ApplicationRecord
     belongs_to :user, optional: true
     has_many :replies
     has_many :likes
+    has_many :images
 
     def replies_by_date()
         self.replies.reverse{|reply|
