@@ -12,9 +12,14 @@ class RepliesController < ApplicationController
     end
 
     def create
-        reply = Reply.create(reply_params)
+        # raise params[:images].inspect
         user = current_user
-        if reply.valid? && reply.user_id == reply_params[:user_id]
+        reply = Reply.create(reply_params)
+        if params[:images]
+          reply.create_images(params[:images], user.id)
+        end
+        
+        if reply.valid? 
           render json:ReplySerializer.new(reply).to_serialized_json
         else
           render json: {errors_or_messages: {from: "create_replie", errors:["Reply couldn't be created", "Please refresh browser and try again."]}}.to_json
@@ -26,6 +31,7 @@ class RepliesController < ApplicationController
         user = current_user
         reply = user && user.replies.find_by_id(params[:id])
         if user && reply
+          reply.images.each{|e|e.delete}
           reply.likes.each{|e|e.delete}
           reply.delete
           render json:{reply_removed: true, reply_id: params[:id].to_i, comment_id: params[:comment_id].to_i }.to_json
@@ -37,4 +43,7 @@ class RepliesController < ApplicationController
     def reply_params
       params.require(:reply).permit(:reply, :user_id, :comment_id, :game_id)
     end
+    # def images_params
+    #   params.require(:images).permit(:image)
+    # end
 end
