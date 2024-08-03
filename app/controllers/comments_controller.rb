@@ -8,7 +8,10 @@ class CommentsController < ApplicationController
 
     def create
         comment = Comment.create(comment_params)
-        if comment.valid? && current_user.id == comment_params[:user_id]
+        if params[:images]
+          comment.create_images(params[:images], current_user.id)
+        end
+        if comment.valid? 
           render json:CommentSerializer.new(comment).to_serialized_json
         else
           render json: {errors_or_messages:{from: "create_comment", errors: ["Create an account or signin to comment"]}}.to_json

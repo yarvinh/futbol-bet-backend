@@ -14,4 +14,10 @@ class Comment < ApplicationRecord
     def replies_total()
         self.replies.length
     end
+
+    def create_images(images,user_id)
+        images.each{|img|
+           self.images.create({image: img, user_id: user_id})
+        }
+    end
 end

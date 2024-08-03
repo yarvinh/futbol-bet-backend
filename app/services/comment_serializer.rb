@@ -9,6 +9,9 @@ class CommentSerializer
             include: {
             user: {},
             likes: {},
+            images: {
+              methods: :image_url
+            },
             replies_by_date: {
               include: {
                 likes: {},
