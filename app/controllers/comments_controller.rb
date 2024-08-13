@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
         if comment.valid? 
           render json:CommentSerializer.new(comment).to_serialized_json
         else
-          render json: {errors_or_messages:{from: "create_comment", errors: ["Create an account or signin to comment"]}}.to_json
+          render json: {errors_or_messages:{from: "create_comment", errors: ["Create an account or signin to comment"]}}.to_json, status: :unprocessable_entity 
         end
     end
 
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
       if game
         render json:{comment_removed: true}.to_json
       else
-        render json:{errors_or_messages: {from: "delete_comment", errors: ["comment don't exist"]}}.to_json
+        render json:{errors_or_messages: {from: "delete_comment", errors: ["comment don't exist"]}}.to_json, status: :unprocessable_entity 
       end
     end
 

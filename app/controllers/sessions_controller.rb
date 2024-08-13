@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
             user = current_user
             render json: {logged_in: true, user: user}.to_json
         else
-            render json: {logged_in: false, errors_or_messages: {from: "show_login", errors: ['No user, please login or signup' ]}}.to_json
+            render json: {logged_in: false, errors_or_messages: {from: "show_login", errors: ['No user, please login or signup' ]}}.to_json, status: 401
        end
     end 
 
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
         if @user.admin
             redirect_to user_path(@user)
         elsif current_user  
-            render json: {logged_in: true, user: @user , token: token}
+            render json: {logged_in: true, user: @user , token: token}.to_json
         else
             redirect_to "/adminlogin"
         end  
@@ -40,9 +40,9 @@ class SessionsController < ApplicationController
         @user = User.find_by(username: params[:user][:username])
         if @user && @user.authenticate(params[:user][:password])
             token = login!  
-            render json: {logged_in: true, user: @user, token: token }
+            render json: {logged_in: true, user: @user, token: token }.to_json
         else
-            render json: {logged_in: false, status: 401, errors_or_messages: { from: "login", errors: ['wrong password or username'] }}
+            render json: {logged_in: false, errors_or_messages: { from: "login", errors: ['wrong password or username'] }}.to_json, status: 401
         end  
 
     end
@@ -54,6 +54,6 @@ class SessionsController < ApplicationController
 
     def log_out
         session.clear
-        render status: 200, json: { logged_in: false , errors_or_messages: { from: "logout", msg: ["logout succesfull "] }}
+        render status: 200, json: { logged_in: false , errors_or_messages: { from: "logout", msg: ["logout succesfull "] }}.to_json
     end
 end

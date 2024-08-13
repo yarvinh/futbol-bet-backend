@@ -2,7 +2,6 @@
 
 class BetsController < ApplicationController
 
-
     def index 
       game = Game.find_by_id(params[:game_id])
       user = current_user
@@ -17,7 +16,7 @@ class BetsController < ApplicationController
       elsif user 
         render json: {}.to_json
       else
-        render json: {errors_or_messages: {from: "bet_index", msg: ["Please login to bet"] }}.to_json
+        render json: {errors_or_messages: {from: "bet_index", msg: ["Please login to bet"] }}.to_json, status: 401
       end
     end
 
@@ -27,11 +26,11 @@ class BetsController < ApplicationController
         if bet.valid? && !params[:amount].include?("-") && !params[:team_id].empty?
           render json: BetSerializer.new(bet).to_serialized_json
         elsif params[:team_id].empty?
-          render json: {errors_or_messages: {from: "create_bet", errors: ["Please select a valid option."] }}.to_json
+          render json: {errors_or_messages: {from: "create_bet", errors: ["Please select a valid option."] }}.to_json, status: :unprocessable_entity
         elsif params[:amount].include?("-")
-            render json: {errors_or_messages: {from: "create_bet", errors: ["Please enter a valid number."] }}.to_json
+            render json: {errors_or_messages: {from: "create_bet", errors: ["Please enter a valid number."] }}.to_json, status: :unprocessable_entity 
         else
-          render json: {errors_or_messages: {from: "create_bet", errors: bet.errors.full_messages }}.to_json
+          render json: {errors_or_messages: {from: "create_bet", errors: bet.errors.full_messages }}.to_json, status: :unprocessable_entity 
         end
     end
 

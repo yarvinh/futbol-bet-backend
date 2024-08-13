@@ -5,7 +5,7 @@ class LikesController < ApplicationController
       if like.valid?
         render json:LikeSerializer.new(like).to_serialized_json
       else
-        render json:{ errors_or_messages: { from: "create_like" , errors: like.errors.full_messages} }.to_json
+        render json:{ errors_or_messages: { from: "create_like" , errors: like.errors.full_messages} }.to_json, status: :unprocessable_entity 
       end
     end
 
@@ -16,7 +16,7 @@ class LikesController < ApplicationController
         comment_id = like.comment && like.comment.id || like.reply && like.reply.comment_id 
         render json:{like_removed: true,comment_id: comment_id, game_id: like.game_id, reply_id: like.reply_id}
       else
-        render json: {like_removed: false, logged_in: false, status: 401, errors_or_messages: { from: "delete_like", errors: ["This like don't exist."] }}.to_json
+        render json: {like_removed: false, logged_in: false, status: 401, errors_or_messages: { from: "delete_like", errors: ["This like don't exist."] }}.to_json, status: :unprocessable_entity 
       end
     end
 

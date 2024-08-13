@@ -25,7 +25,6 @@ class GamesController < ApplicationController
     end
 
     def create
-
         @game =  Game.new(game_params)
         @game.time = Game.time_zone(params[:game][:date])
         @game.date = Game.date(params[:game][:date])

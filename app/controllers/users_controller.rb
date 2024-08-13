@@ -45,9 +45,9 @@ class UsersController < ApplicationController
         if user && user.update(user_params)
           render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,msg: ["User was succesfully updated"]}}
         elsif(user)
-          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,errors: user.errors.full_messages}}
+          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,errors: user.errors.full_messages}}, status: :unprocessable_entity 
         else
-          render json: {logged_in: false, errors_or_messages: {from: "update_user" ,errors: ["You are not authorize to edit this user."]}}
+          render json: {logged_in: false, errors_or_messages: {from: "update_user" ,errors: ["You are not authorize to edit this user."]}}, status: 401
         end
       end
 
