@@ -1,18 +1,19 @@
 class GamesController < ApplicationController
  
     def show 
-        game = Game.find(params[:id])
-        render json:GameSerializer.new(game).to_serialized_json
+      game = Game.find(params[:id])
+      render json:GameSerializer.new(game).to_serialized_json
     end
     
     def index
       user = current_user
-      if user && user.admin
-        @games = Game.all
+      if user && user.admin 
+        games = Game.all
       else
         games = Game.upcoming_games
-        render json:GamesSerializer.new(games).to_serialized_json
-      end 
+      end
+      render json:GamesSerializer.new(games).to_serialized_json
+
     end
     
     def new 

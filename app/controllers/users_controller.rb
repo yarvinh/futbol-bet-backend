@@ -5,7 +5,6 @@ class UsersController < ApplicationController
       end
 
       def show  
-        # raise current_user.inspect
         if current_user && current_user
           @user = current_user
         else
@@ -18,36 +17,28 @@ class UsersController < ApplicationController
       end
   
       def create  
-      # when there is no admin
-        if user_params[:admin] && !User.find_by(admin: true)
-          @user = User.new(user_params)
-            if @user.valid?
-               @user.save
-               redirect_to '/sessions/new'
-             else
-              flash[:error] = @user.errors.full_messages 
-               redirect_to "/users/new"
-            end  
-        else 
-          @user = User.new(user_params)
-          if @user.valid?
-            @user.save
-            login!
-            render json: {logged_in: true, user: @user }
-          else
-             render status: 200, json: { logged_in: false , errors_or_messages:{from: "create_user", errors: @user.errors.full_messages }}
-          end
+        @user = User.create(user_params)
+        if @user.valid? && @user.admin
+          redirect_to '/sessions/new'
+        elsif @user && @user.admin
+          flash[:error] = @user.errors.full_messages 
+          redirect_to "/users/new"
+        elsif @user.valid? 
+          token = login!
+          render json: {logged_in: true, token: token, user: @user}.to_json
+        else
+          render json: {logged_in: false , errors_or_messages:{from: "create_user", errors: @user.errors.full_messages }}.to_json, status: 401
         end
       end
 
       def update 
         user  = current_user
         if user && user.update(user_params)
-          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,msg: ["User was succesfully updated"]}}
+          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,msg: ["User was succesfully updated"]}}.to_json
         elsif(user)
-          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,errors: user.errors.full_messages}}, status: :unprocessable_entity 
+          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,errors: user.errors.full_messages}}.to_json, status: :unprocessable_entity 
         else
-          render json: {logged_in: false, errors_or_messages: {from: "update_user" ,errors: ["You are not authorize to edit this user."]}}, status: 401
+          render json: {logged_in: false, errors_or_messages: {from: "update_user" ,errors: ["You are not authorize to edit this user."]}}.to_json, status: 401
         end
       end
 
