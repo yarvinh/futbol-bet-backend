@@ -6,7 +6,7 @@ class RepliesController < ApplicationController
       if comment 
         render json:RepliesSerializer.new(comment.replies_by_date[array_length.to_i ..array_length.to_i + 10 ]).to_serialized_json
       else
-        render json: {errors_or_messages: {from: "replies", errors:["No replies were found."]}}.to_json, status: :unprocessable_entity 
+        render json: {errors_or_messages: {from: "reply", errors:["No replies were found."]}}.to_json, status: :unprocessable_entity 
       end
     end
 
@@ -20,7 +20,7 @@ class RepliesController < ApplicationController
         if reply.valid? 
           render json:ReplySerializer.new(reply).to_serialized_json
         else
-          render json: {errors_or_messages: {from: "create_replie", errors:["Reply couldn't be created", "Please refresh browser and try again."]}}.to_json, status: :unprocessable_entity 
+          render json: {errors_or_messages: {from: "create_reply", errors:["Reply couldn't be created", "Please refresh browser and try again."]}}.to_json, status: :unprocessable_entity 
         end
         
     end
