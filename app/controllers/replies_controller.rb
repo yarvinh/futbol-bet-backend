@@ -1,10 +1,10 @@
 class RepliesController < ApplicationController
     def index 
-      array_length = params[:array_length]
+      array_length = params[:array_length].to_i
       game = Game.find_by_id(params[:game_id])
       comment = game && game.comments.find_by_id(params[:comment_id])
       if comment 
-        render json:RepliesSerializer.new(comment.replies_by_date[array_length.to_i ..array_length.to_i + 10 ]).to_serialized_json
+        render json:RepliesSerializer.new(comment.replies_by_date[array_length .. array_length.to_i + 10 ]).to_serialized_json
       else
         render json: {errors_or_messages: {from: "reply", errors:["No replies were found."]}}.to_json, status: :unprocessable_entity 
       end
