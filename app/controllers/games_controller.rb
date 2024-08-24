@@ -6,14 +6,14 @@ class GamesController < ApplicationController
     end
     
     def index
+
       user = current_user
       if user && user.admin 
-        games = Game.all
+        @games = Game.all
       else
         games = Game.upcoming_games
+        render json:GamesSerializer.new(games).to_serialized_json
       end
-      render json:GamesSerializer.new(games).to_serialized_json
-
     end
     
     def new 

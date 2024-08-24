@@ -4,6 +4,7 @@ class User < ApplicationRecord
     has_many :comments
     has_many :replies
     has_many :likes
+    has_one :image
     validates :username, :email,  presence: true
     validates :username, :email, uniqueness: true
     validates_with OldPasswordValidator , :if => :password_required?

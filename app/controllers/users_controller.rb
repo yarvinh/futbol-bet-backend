@@ -25,7 +25,7 @@ class UsersController < ApplicationController
           redirect_to "/users/new"
         elsif @user.valid? 
           token = login!
-          render json: {logged_in: true, token: token, user: @user}.to_json
+          render json: UserSerializer.new({logged_in: true, token: token, user: @user, errors_or_messages:{from:"create_user", msg:[`Welcome #{@user.name}`]}}).to_serialized_json
         else
           render json: {logged_in: false , errors_or_messages:{from: "create_user", errors: @user.errors.full_messages }}.to_json, status: 401
         end
@@ -34,9 +34,9 @@ class UsersController < ApplicationController
       def update 
         user  = current_user
         if user && user.update(user_params)
-          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,msg: ["User was succesfully updated"]}}.to_json
-        elsif(user)
-          render json: {logged_in: true, user: user, errors_or_messages: {from: "update_user" ,errors: user.errors.full_messages}}.to_json, status: :unprocessable_entity 
+          render json:UserSerializer.new({logged_in: true, user: user, errors_or_messages: {from: "update_user" ,msg: ["User was succesfully updated"]}}).to_serialized_json
+        elsif user
+          render json: {errors_or_messages: {from: "update_user" ,errors: user.errors.full_messages}}.to_json, status: :unprocessable_entity 
         else
           render json: {logged_in: false, errors_or_messages: {from: "update_user" ,errors: ["You are not authorize to edit this user."]}}.to_json, status: 401
         end

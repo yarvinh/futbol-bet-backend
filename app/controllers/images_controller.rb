@@ -1,37 +1,30 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: %i[ show edit update destroy ]
 
-  # GET /images or /images.json
-  def index
-    @images = Image.all
-  end
-
-  # GET /images/1 or /images/1.json
-  def show
-  end
-
-  # GET /images/new
-  def new
-    @image = Image.new
-  end
-
-  # GET /images/1/edit
-  def edit
-  end
-
   # POST /images or /images.json
   def create
-    @image = Image.new(image_params)
-
-    respond_to do |format|
-      if @image.save
-        format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
-        format.json { render :show, status: :created, location: @image }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+    @user = current_user
+    if @user && @user.image
+      @user.image.delete
     end
+    @image = Image.new({image: params[:image]})
+    
+    @image.user = @user
+    if @user && @image.save 
+      render json: UserSerializer.new({logged_in: true, user: @user,  errors_or_messages: {from: "create_user_image", msg: [ "Image was successfully created."]}}).to_serialized_json
+    else 
+      render json: {errors_or_messages: {from: "create_image", errors: ["Something went wrong", "Image was not created."]} }.to_json, status: :unprocessable_entity 
+    end
+
+    # respond_to do |format|
+    #   if @image.save
+    #     format.html { redirect_to image_url(@image), notice: "Image was successfully created." }
+    #     format.json { render :show, status: :created, location: @image }
+    #   else
+    #     format.html { render :new, status: :unprocessable_entity }
+    #     format.json { render json: @image.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /images/1 or /images/1.json

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
             @user = current_user
         elsif logged_in? 
             user = current_user
-            render json: {logged_in: true, user: user}.to_json
+            render json: UserSerializer.new({logged_in: true, user: user}).to_serialized_json
         else
             render json: {logged_in: false, errors_or_messages: {from: "show_login", errors: ['No user, please login or signup' ]}}.to_json, status: 401
        end
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
         if @user.admin
             redirect_to user_path(@user)
         elsif current_user  
-            render json: {logged_in: true, user: @user , token: token}.to_json
+            render json: UserSerializer.new({logged_in: true, user: @user , token: token}).to_serialized_json
         else
             redirect_to "/adminlogin"
         end  
@@ -37,14 +37,13 @@ class SessionsController < ApplicationController
     end
 
     def login
-        @user = User.find_by(username: params[:user][:username])
+        @user = User.find_by("username = ?",params[:user][:username])
         if @user && @user.authenticate(params[:user][:password])
             token = login!  
-            render json: {logged_in: true, user: @user, token: token }.to_json
+            render json: UserSerializer.new({logged_in: true, user: @user, token: token }).to_serialized_json
         else
             render json: {logged_in: false, errors_or_messages: { from: "login", errors: ['wrong password or username'] }}.to_json, status: 401
         end  
-
     end
   
     def destroy
