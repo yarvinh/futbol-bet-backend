@@ -1,27 +1,9 @@
 
 
+<h1>New Team</h1>
+<%= render "form", team: @team %>
+<br>
 
-
-<%= form_for(@team) do |f| %>
-    <ul> 
-       <%if flash[:error]%>
-            <%  flash[:error].each do |message| %>
-               <li><%= message %></li>
-            <% end %>
-        <% end %>
-    </ul>
-    <%= f.label :fc %>
-    <%= f.text_field :fc%> 
-    
-    <%= f.label :league%>
-    <%= f.text_field :league%>
-    
-    <%= f.label :stadium %>
-    <%= f.text_field :stadium %> 
-
-    <%= f.label :logo_url %>
-    <%= f.text_field :logo_url%> 
-   
-    <%= f.submit %>
-<% end %>
-
+<div>
+  <%= link_to "Back to teams", teams_path %>
+</div>

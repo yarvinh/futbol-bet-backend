@@ -1,4 +1,8 @@
 class TeamsController < ApplicationController
+   def show
+      @team = Team.find_by_id(params[:id])
+   end
+
    def index
         @teams = Team.all
         if admin
@@ -20,7 +24,11 @@ class TeamsController < ApplicationController
    def create
       user = current_user
       @team = Team.new(team_params)
-
+      if @team.save
+        redirect_to team_path(@team), notice: "Team was successfully created." 
+      else
+         render :new, status: :unprocessable_entity 
+      end
    end
 
    private

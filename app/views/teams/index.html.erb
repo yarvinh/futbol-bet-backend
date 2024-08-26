@@ -8,6 +8,11 @@
            <p>Stadium: <%= team.stadium%></p>
            <p> League: <%= team.league%> </p>
            <p> Picture url: <%=team.logo_url%></p>
+           <div>
+            <%= link_to "Edit this team", edit_team_path(team) %> |
+            <%= link_to "Show this team", team_path(team) %>
+            <%= button_to "Destroy this team", team, method: :delete %>
+           </div>
     _____________________________________________________________________
         </li>
     <%end%>
@@ -21,6 +26,11 @@
            <p>Stadium: <%= team.stadium%></p>
            <p> League: <%= team.league%> </p>
            <p> Picture url: <%=team.logo_url%></p>
+           <div>
+                <%= link_to "Edit this team", edit_team_path(team) %> |
+                <%= link_to "Show this team", team_path(team) %>
+                <%= button_to "Destroy this team", team, method: :delete %>
+            </div>
     _____________________________________________________________________
         </li>
     <%end%>
@@ -33,6 +43,11 @@
            <p>Stadium: <%= team.stadium%></p>
            <p> League: <%= team.league%> </p>
            <p> Picture url: <%=team.logo_url%></p>
+           <div>
+            <%= link_to "Edit this team", edit_team_path(team) %> |
+            <%= link_to "Show this team", team_path(team) %>
+            <%= button_to "Destroy this team", team, method: :delete %>
+           </div>
     _____________________________________________________________________
         </li>
     <%end%>
@@ -46,6 +61,11 @@
            <p>Stadium: <%= team.stadium%></p>
            <p> League: <%= team.league%> </p>
            <p> Picture url: <%=team.logo_url%></p>
+           <div>
+            <%= link_to "Edit this team", edit_team_path(team) %> |
+            <%= link_to "Show this team", team_path(team) %>
+            <%= button_to "Destroy this team", team, method: :delete %>
+           </div>
     _____________________________________________________________________
         </li>
     <%end%>
@@ -59,6 +79,11 @@
            <p>Stadium: <%= team.stadium%></p>
            <p> League: <%= team.league%> </p>
            <p> Picture url: <%=team.logo_url%></p>
+           <div>
+            <%= link_to "Edit this team", edit_team_path(team) %> |
+            <%= link_to "Show this team", team_path(team) %>
+            <%= button_to "Destroy this team", team, method: :delete %>
+           </div>
     _____________________________________________________________________
         </li>
     <%end%>
