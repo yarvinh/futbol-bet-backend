@@ -26,12 +26,13 @@ class SessionsController < ApplicationController
             token = login!
         end
          
-        if @user.admin
+        if @user && @user.admin
             redirect_to user_path(@user)
         elsif current_user  
             render json: UserSerializer.new({logged_in: true, user: @user , token: token}).to_serialized_json
         else
-            redirect_to "/adminlogin"
+            flash[:error] = "Wrong password or username"
+            render 'new',status: :unprocessable_entity 
         end  
 
     end

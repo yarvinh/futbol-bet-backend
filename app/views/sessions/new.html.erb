@@ -1,14 +1,14 @@
-<h1> Singin </h1>
 
-  <%= form_tag adminlogin_path do %>
-    <label>User Name:</label><br>
-    <%= text_field_tag :'user[username]' %><br>
+<h1 style="text-align: center"> Admin Sign in </h1>
+  <%= form_tag adminlogin_path, class: "login-form" do %>
+    <h3 style="color: red; margin-left: 10px;"><%=flash[:error]%></h3>
+    <label>User Name</label><br>
+    <%= text_field_tag :'user[username]',"", class: "standar-input login-field" %><br>
    
-    <label>Password:</label><br>
-    <%= password_field_tag  :'user[password]' %><br>
+    <label>Password</label><br>
+    <%= password_field_tag  :'user[password]', "", class: "standar-input login-field"%><br>
    
-    <%= submit_tag "LogIn" %>
+    <%= submit_tag "LogIn" ,class: "standar-button" %>
   <% end %>
 
-  <h3><%= flash[:error] %></h3>
-  <p> <%= flash[:message] %></p>
+

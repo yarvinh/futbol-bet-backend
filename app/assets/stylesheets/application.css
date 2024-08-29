@@ -62,7 +62,7 @@
     text-align: center;
     line-height: 28px;
     opacity: .8;
-
+    margin-left: 1rem;
  }
  .back-button:hover{
     opacity: 1
@@ -107,3 +107,18 @@
  .nav-bar-link:hover{
     opacity: 1;
  }
+
+ .login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    max-width: 450px;
+    box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
+    margin: auto;
+ }
+
+ .login-field{
+    max-width: 250px;
+ }
+

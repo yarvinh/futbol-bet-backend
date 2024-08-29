@@ -1,12 +1,15 @@
 class GamesController < ApplicationController
  
     def show 
-      game = Game.find(params[:id])
-      render json:GameSerializer.new(game).to_serialized_json
+      if current_user && current_user.admin
+        @game = Game.find_by_id(params[:id])
+      else
+        game = Game.find(params[:id])
+        render json:GameSerializer.new(game).to_serialized_json
+      end
     end
     
     def index
-
       user = current_user
       if user && user.admin 
         @games = Game.all
@@ -27,8 +30,8 @@ class GamesController < ApplicationController
 
     def create
         @game =  Game.new(game_params)
-        @game.time = Game.time_zone(params[:game][:date])
-        @game.date = Game.date(params[:game][:date])
+        @game.time = !params[:game][:date].empty? && Game.time_zone(params[:game][:date])
+        @game.date = !params[:game][:date].empty? && Game.date(params[:game][:date])
         @game.save
 
         team_1 = Team.find_by_id(game_params[:team_1])
@@ -46,7 +49,16 @@ class GamesController < ApplicationController
         if game_params[:competition] === 'none'
             @game.update(competition: team_1.league)
         end
-        redirect_to new_game_path
+        
+        respond_to do |format|
+          if @game.valid?
+            format.html { redirect_to game_path(@game), notice: "Game was successfully updated." }
+            format.json { render :show, status: :ok, location: @game }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @game.errors, status: :unprocessable_entity }
+          end
+        end
 
     end
 
