@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+<div class="create-link-wraper" >
+  <h1>Leagues</h1>
+  <%= link_to "New league", new_league_path, class: "standar_links" %>
+</div>
+
+<div class="leagues-container">
+  <% @leagues.each do |league| %>
+    <div class="standar-link-wraper" >
+      <%= link_to "#{league.country} | #{league.name}", league, class: "league_links" %>
+    </div >
+  <% end %>
+</div>
+
+

@@ -1,5 +1,6 @@
 <section>
-
+    <label for="leagues">Choose a competion:</label>
+    <%=select_tag("name",options_for_select([ "VISA", "MasterCard" ], "MasterCard"))%>
     <ul>
         <%=link_to "Create Team", new_team_path %>
         <h3> Premier League </h3>

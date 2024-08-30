@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @league %>
+<div>
+  <div class="links-wrapper">
+    <%= link_to "Edit this league", edit_league_path(@league), class: "standar_links" %> 
+    <%= link_to "Back to leagues", leagues_path,class: "standar_links" %>
+  </div>
+  <%= render "teams/form" , team: @team, league: @league%>
+  <div class="teams-container">
+    <% @league.teams.each do |team| %>
+      <%= render "teams/team_link", team: team %>
+    <%end%>
+  </div>
+  <%= button_to "Destroy this league", @league, method: :delete, class: "delete-buttons"%>
+</div>

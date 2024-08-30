@@ -13,12 +13,19 @@
     <% end %>
   </div>
 
+  <% if league %>
+    <%= f.hidden_field :league_id, value: league.id %>
+  <%else%>
+    <% league = League.all.map do |league|%>
+      <%[league.name, league.id]%>
+    <%end%>
+    <% league.unshift(["None", nil]) %>
+    <%= f.label :leagues%>
+    <%= f.select :league_id ,league,:class=>"standar-input" %>
+  <% end %>
 
   <%= f.label :fc %>
   <%= f.text_field :fc ,:class=>"standar-input" %> 
-  
-  <%= f.label :league%>
-  <%= f.text_field :league , :class=>"standar-input" %>
   
   <%= f.label :stadium %>
   <%= f.text_field :stadium, :class=>"standar-input" %> 

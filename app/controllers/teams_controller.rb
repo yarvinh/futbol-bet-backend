@@ -12,6 +12,10 @@ class TeamsController < ApplicationController
         end      
    end
 
+   def edit
+      @team = Team.find_by_id(params[:id])
+   end
+
    def new
       user = current_user
       if user && user.admin
@@ -21,11 +25,32 @@ class TeamsController < ApplicationController
       end
    end
 
+   def update
+      @team = Team.find_by_id(params[:id])
+      if params[:team][:league_id]
+        Tournament.create({team_id: @team.id, league_id: params[:team][:league_id]})
+      end
+
+      if @team.update(team_params)
+         redirect_to team_path(@team), notice: "Team was successfully updated." 
+      else
+        render :new ,status: :unprocessable_entity 
+      end
+ 
+
+   end
+
    def create
+      @league = League.find_by_id(params[:team][:league_id])
+      
       user = current_user
       @team = Team.new(team_params)
-      if @team.save
+
+      if @team.save 
+         tournament = Tournament.create({league_id: params[:team][:league_id], team_id: @team.id})
         redirect_to team_path(@team), notice: "Team was successfully created." 
+      elsif params[:team][:league_id]
+         render "/leagues/show", status: :unprocessable_entity 
       else
          render :new, status: :unprocessable_entity 
       end

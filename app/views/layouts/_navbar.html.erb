@@ -6,6 +6,7 @@
       <li><%=link_to "Teams" ,teams_path , :class=>"nav-bar-link" %></li>
       <li><%=link_to "Create new game" ,new_game_path, :class=>"nav-bar-link" %> </li>
       <li><%=link_to "Create new Team" ,new_team_path , :class=>"nav-bar-link" %></li>
+      <li><%=link_to "Leagues" ,leagues_path, :class=>"nav-bar-link" %> </li>
       <li><%=link_to "Log out" , '/signout', data: {turbo_method: :delete}, :class=>"nav-bar-link" %></li>
     <%else%>
       <li><%= link_to "Login" ,'/login' , :class=>"nav-bar-link" %></li>
