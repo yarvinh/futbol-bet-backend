@@ -1,9 +1,12 @@
-<nav>
- <% if User.all.empty? %>
-    <%= link_to('Sign Up', '/users/new') %>
-    <%end%>
-    <%= link_to('Sign In', '/login') %>
-</nav>
+<div style="margin: 1rem">
+    <% if User.all.empty? %>
+      <%= link_to('Sign Up', '/users/new', class: "standar_links", style: "margin:auto;") %>
+    <% end %>
+    <% if !session[:user_id] %>
+        <%= link_to('Sign In', '/login', class: "standar_links", style: "margin:auto;") %>
+    <% end %>
+</div>
+
 
 
 

@@ -1,5 +1,5 @@
-<h1>  Set Admin Account</h1>   
-<%= form_for @user  do |f| %>
+<h1 style="text-align: center;">  Set Admin Account</h1>   
+<%= form_for @user  , html: {:class=> "standar-form"} do |f| %>
     <% if flash[:error] != nil %>
         <div id="error_explanation">
             <h2>There were some errors:</h2>
@@ -13,29 +13,26 @@
     <%= f.label :admin%>
     <%= f.check_box :admin, {}, true, false %> <br />
     <%= f.label :name %>
-    <%= f.text_field :name %><br>
+    <%= f.text_field :name, class: "standar-input" %><br>
     
     <%= f.label :address%>
-    <%= f.text_field :address %><br>
+    <%= f.text_field :address, class: "standar-input" %><br>
 
     <%= f.label :coins%>
-    <%= f.text_field :coins %><br>
+    <%= f.text_field :coins, class: "standar-input" %><br>
 
     <%= f.label :email %>
-    <%= f.text_field :email %><br>
+    <%= f.text_field :email,  class: "standar-input" %><br>
 
     <%= f.label :username %>
-    <%= f.text_field :username %><br>
+    <%= f.text_field :username,  class: "standar-input" %><br>
 
     <%= f.label :password %>
-    <%= f.password_field :password%><br>
+    <%= f.password_field :password ,  class: "standar-input"%><br>
 
     <%= f.label :confirm_password %>
-    <%= f.password_field  :password_confirmation%><br>
+    <%= f.password_field  :password_confirmation,  class: "standar-input"%><br>
 
-    <br> <br>
-  <br> <br>
-
-    <%= f.submit %>
+    <%= f.submit :class=> "standar-button"%>
   <% end %>
 

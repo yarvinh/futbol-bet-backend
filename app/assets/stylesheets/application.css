@@ -37,7 +37,6 @@
     background-color: white;
     border-width: 1px;
     margin: 1rem;
-
  }
 
  .standar-button:hover{
@@ -100,31 +99,180 @@
     width: 100%;
  }
 
- .nav-bar{
-    background-color: #263e57;
-    height: 50px;
-    text-decoration: none;
-    align-content: center;
- }
 
- .nav-bar-list{
-    display: flex;
-    flex-direction: row;
-    text-decoration: none;
-    gap: 1rem;
-    list-style-type: none;
- }
 
- .nav-bar-link{
-    color: white;
-    text-decoration: none;
-    opacity: .8;
-    transition: .3s;
- }
+@media screen and (min-width: 700px) {
+    .nav-bar{
+        background-color: #263e57;
+        height: 50px;
+        text-decoration: none;
+        align-content: center;
+    }
+    
+     .nav-bar-list{
+        display: flex;
+        flex-direction: row;
+        text-decoration: none;
+        gap: 1rem;
+        list-style-type: none;
+     }
 
- .nav-bar-link:hover{
-    opacity: 1;
- }
+     .nav-bar-link{
+        color: white;
+        text-decoration: none;
+        opacity: .8;
+        transition: .3s;
+     }
+    
+     .nav-bar-link:hover{
+        opacity: 1;
+     } 
+}
+
+
+@media screen and (max-width: 700px) {
+    .nav-button-active{
+        top: 0px;
+        margin-right: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 30px;
+        background-color: #263e57;
+        width: 50px;
+        height: 40px;
+        border-radius: .5rem;
+        border: solid;
+        border-color: white;
+        border-width: 1px;
+        right: 0;
+        opacity: .6;
+        z-index: 20;
+        position: fixed;
+      }
+      
+      .nav-button{
+        position: absolute;
+        /* margin: 20px; */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #263e57;
+        width: 50px;
+        height: 40px;
+        border-radius: .5rem;
+        border: solid;
+        border-color: #4e6fc9;;
+        border-width: 1px;
+        opacity: .8;
+        z-index: 20;
+        right: 10px;
+        top: 4px;
+      }
+      
+      .nav-button-active:hover{
+        opacity: 1;
+      }
+      .nav-button-active:active{
+        border-width: 3px;
+      }
+      
+      .nav-button:hover{
+        opacity: 1;
+      }
+      .nav-button:active{
+        border-width: 3px;
+      }
+      
+      .nav-button-line{
+        margin: 4px;
+        width: 60%;
+        background-color: white;
+        height: 2px;
+        border-radius: .5rem;
+      }
+      
+      .nav-button-line{
+        margin: 4px;
+        width: 60%;
+        background-color: white;
+        height: 2px;
+        border-radius: .5rem;
+      }
+      
+      #nav-bar-x{
+        width: 40px;
+        filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(237deg) brightness(104%) contrast(104%);
+      }
+      
+      .button-container{
+        width: 100%;
+      }
+      
+      .profile-inf{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100px;
+      }
+      
+      .nav-bar ul{
+        list-style-type: none;
+        margin-top: 20px;
+      }
+      
+      .profile-image{
+        margin: 10px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+      }
+
+    .nav-bar{
+        width: 100%;
+        min-height: 50px;
+        background-color: #263e57;
+        text-decoration: none;
+        align-content: center;
+    }
+    
+    .nav-bar-list{
+        display: flex;
+        position: absolute;
+        width: 100%;
+        height: 220px;
+        background-color: #263e57;
+        flex-direction: column;
+        text-decoration: none;
+        gap: 1rem;
+        list-style-type: none;
+        z-index: 10;
+     }
+
+     .nav-bar-link{
+        color: white;
+        text-decoration: none;
+        opacity: .8;
+        transition: .3s;
+     }
+    
+     .nav-bar-link:hover{
+        opacity: 1;
+     } 
+     .hide {
+        display: none;
+    }
+
+
+}
+  
+
+
+
 
  .login-form{
     display: flex;
@@ -201,4 +349,51 @@
  .team-image{
     width: 50px;
     height: 50px;
+ }
+
+ .standar-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    max-width: 450px;
+    box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
+    margin: auto;
+ }
+
+.footer{
+    height: 200px;
+    width: 100%;
+}
+
+
+.box-shadow{
+    box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
+}
+
+.blue-btn{
+    background-color: #2997ff;
+    height: 30px;
+    color: black;
+    margin: 1rem;
+    cursor: pointer;
+    width: 15rem;
+    border-width: 1px;
+    margin: 1rem;
+    opacity: .8;
+}
+
+.blue-btn:hover{
+    opacity: 1;
+}
+
+.blue-btn:active{
+    background-color: #263E57;
+    color: white
+ }
+
+ .card-header{
+    text-align: center;
+    box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
+    height: 100px;
  }

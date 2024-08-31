@@ -36,8 +36,6 @@ class TeamsController < ApplicationController
       else
         render :new ,status: :unprocessable_entity 
       end
- 
-
    end
 
    def create
@@ -45,9 +43,11 @@ class TeamsController < ApplicationController
       
       user = current_user
       @team = Team.new(team_params)
-
-      if @team.save 
-         tournament = Tournament.create({league_id: params[:team][:league_id], team_id: @team.id})
+      @team.save 
+      Tournament.create({league_id: params[:team][:league_id], team_id: @team.id})
+      if @team.valid? && @league
+         redirect_to league_path(@league), notice: "Team was successfully created." 
+      elsif @team.valid?
         redirect_to team_path(@team), notice: "Team was successfully created." 
       elsif params[:team][:league_id]
          render "/leagues/show", status: :unprocessable_entity 

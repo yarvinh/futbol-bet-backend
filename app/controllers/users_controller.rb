@@ -19,13 +19,14 @@ class UsersController < ApplicationController
       def create  
         @user = User.create(user_params)
         if @user.valid? && @user.admin
-          redirect_to '/sessions/new'
+          login!
+          redirect_to '/'
         elsif @user && @user.admin
           flash[:error] = @user.errors.full_messages 
           redirect_to "/users/new"
         elsif @user.valid? 
           token = login!
-          render json: UserSerializer.new({logged_in: true, token: token, user: @user, errors_or_messages:{from:"create_user", msg:[`Welcome #{@user.name}`]}}).to_serialized_json
+          render json: UserSerializer.new({logged_in: true, token: token, user: @user, errors_or_messages:{from:"create_user", msg: ["Welcome #{@user.name}"] } }).to_serialized_json
         else
           render json: {logged_in: false , errors_or_messages:{from: "create_user", errors: @user.errors.full_messages }}.to_json, status: 401
         end

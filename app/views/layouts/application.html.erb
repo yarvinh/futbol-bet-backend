@@ -10,8 +10,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body style="margin: 0px;">
+  <body id="root" style="margin: 0px;">
     <%= render "layouts/navbar" %>
     <%= yield %>
+    <footer class="footer">
+    </footer
   </body>
+  <%=javascript_include_tag "controllers/navBar", "data-turbolinks-track" => true%>
 </html>
