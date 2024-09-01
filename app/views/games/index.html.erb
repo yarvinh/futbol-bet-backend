@@ -1,8 +1,8 @@
 <% if session[:user_id] %>
   <%= link_to('Add new game',new_game_path, class: "standar_links", style: "margin-top: 1rem;")%> 
 <% end %>
-<ul style="padding: 0px;>
-    <% @games.each do |game| %>
-      <%= render game %>
-    <% end %>
-</ul>
+<section>
+<% @games.each { |game| %>
+    <%= render game %>
+<% }%>
+</section>

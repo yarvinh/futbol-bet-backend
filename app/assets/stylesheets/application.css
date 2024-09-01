@@ -369,6 +369,7 @@
 
 .box-shadow{
     box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
+    margin: 1rem;
 }
 
 .blue-btn{
@@ -379,7 +380,6 @@
     cursor: pointer;
     width: 15rem;
     border-width: 1px;
-    margin: 1rem;
     opacity: .8;
 }
 
@@ -393,7 +393,47 @@
  }
 
  .card-header{
+    color: white;
+    background-color: #00563B;
     text-align: center;
     box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
     height: 100px;
+    line-height: 40px;
+ }
+ .card{
+    /* background-color: #17B169; */
+    background-color:#4D5D53;
+    max-height: 450px;
+    margin-bottom: 2rem;
+    gap:1rem;
+ }
+
+ .select-winner{
+    display: flex;
+    align-items: center;
+    align-content: center;
+   flex-wrap: wrap;
+   max-width: 550px;
+   margin: auto;
+ }
+
+ .delete{
+   background-color: #b92b27;
+   color: white;
+   opacity: .8;
+
+ }
+ .delete:hover{
+    background-color: #b92b27;
+    color: white;
+    opacity: 1;
+ }
+
+ .standar-form{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 1px 1px 3px 0px rgb(176, 173, 173);
  }

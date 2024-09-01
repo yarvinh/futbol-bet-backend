@@ -49,7 +49,7 @@ class GamesController < ApplicationController
         if game_params[:competition] === 'none'
             @game.update(competition: team_1.league)
         end
-        
+
         respond_to do |format|
           if @game.valid?
             format.html { redirect_to game_path(@game), notice: "Game was successfully updated." }
@@ -60,6 +60,10 @@ class GamesController < ApplicationController
           end
         end
 
+    end
+
+    def edit
+      @game = Game.find_by_id(params[:id])
     end
 
     def update    
