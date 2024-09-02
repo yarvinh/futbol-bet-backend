@@ -1,6 +1,7 @@
 <div class="box-shadow card">
    <div class="card-header">
         <h3> <%=game.status%></h3>
+        <h3><%=game.team_events[0].team.fc%> VS <%= game.team_events[1].team.fc%></h3>
         <p> Date: <%= game.date %> Time: <%= game.time %> </p>
     </div>
     <%if game.team_events[0].points === 0 && game.team_events[1].points === 0 && game.pending%>

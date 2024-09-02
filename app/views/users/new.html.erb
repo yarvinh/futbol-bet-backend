@@ -1,17 +1,23 @@
 <h1 style="text-align: center;">  Set Admin Account</h1>   
 <%= form_for @user  , html: {:class=> "standar-form"} do |f| %>
-    <% if flash[:error] != nil %>
-        <div id="error_explanation">
-            <h2>There were some errors:</h2>
-            <ul>
-                <% flash[:error].each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-    <%= f.label :admin%>
-    <%= f.check_box :admin, {}, true, false %> <br />
+
+    <div class="errors-container">
+        <% if @user.errors.any? %>
+            <div style="color: red">
+                <h2><%= pluralize(@user.errors.count, "error") %> prohibited this team from being saved:</h2>
+                <ul>
+                    <% @user.errors.each do |error| %>
+                        <li><%= error.full_message %></li>
+                    <% end %>
+                </ul>
+            </div>
+       <% end %>
+    </div>
+    
+    <!-- <%= f.label :admin%> -->
+    <!-- <%= f.check_box :admin, {}, true, false %> <br /> -->
+    
+    <%= f.hidden_field :admin, value: true %>
     <%= f.label :name %>
     <%= f.text_field :name, class: "standar-input" %><br>
     

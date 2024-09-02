@@ -22,8 +22,7 @@ class UsersController < ApplicationController
           login!
           redirect_to '/'
         elsif @user && @user.admin
-          flash[:error] = @user.errors.full_messages 
-          redirect_to "/users/new"
+          render :new, status: :unprocessable_entity 
         elsif @user.valid? 
           token = login!
           render json: UserSerializer.new({logged_in: true, token: token, user: @user, errors_or_messages:{from:"create_user", msg: ["Welcome #{@user.name}"] } }).to_serialized_json

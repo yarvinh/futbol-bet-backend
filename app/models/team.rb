@@ -11,4 +11,9 @@ class Team < ApplicationRecord
     validates :fc, :logo_url,  presence: true
     validates :fc, :logo_url, uniqueness: true
 
+    def add_error(error)
+        errors.add(:league, :blank, message: error)
+      end
+    
+
 end

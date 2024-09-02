@@ -5,6 +5,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.string :competition
       t.string :status
       t.boolean :pending, default: true
+      t.integer :league_id
       t.date :date
       t.time :time
       t.timestamps

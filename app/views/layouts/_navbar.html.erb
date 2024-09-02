@@ -2,22 +2,24 @@
 <% user = User.find_by_id(session[:user_id]) %>
  <ul id="nav-bar-list" class="nav-bar-list display hide">
    <%if session[:user_id] %>
-      <li class= "display"><%=link_to "Games" ,games_path, :class=>"nav-bar-link display" %> </li>
-      <li class= "display"><%=link_to "Teams" ,teams_path , :class=>"nav-bar-link display" %></li>
-      <li class= "display"><%=link_to "Create new game" ,new_game_path, :class=>"nav-bar-link display" %> </li>
-      <li class= "display"><%=link_to "Create new Team" ,new_team_path , :class=>"nav-bar-link display" %></li>
-      <li class= "display"><%=link_to "Leagues" ,leagues_path, :class=>"nav-bar-link display" %> </li>
-      <li class= "display"><%=link_to "Log out" , '/signout', data: {turbo_method: :delete}, :class=>"nav-bar-link display" %></li>
+      <li class= "display"><%=link_to "Games" ,games_path, remote: true , :class=>"nav-bar-link display" %> </li>
+      <li class= "display"><%=link_to "Teams" ,teams_path , remote: true , :class=>"nav-bar-link display" %></li>
+      <li class= "display"><%=link_to "Create new game" ,new_game_path,  remote: true ,:class=>"nav-bar-link display" %> </li>
+      <li class= "display"><%=link_to "Create new Team" , new_team_path ,remote: true , :class=>"nav-bar-link display" %></li>
+      <li class= "display"><%=link_to "Leagues" ,leagues_path,  remote: true,  :class=>"nav-bar-link display" %> </li>
+      <li class= "display"><%=link_to "Log out" , '/signout',  remote: true ,data: {turbo_method: :delete}, :class=>"nav-bar-link display" %></li>
     <%else%>
       <li><%= link_to "Login" ,'/login' , :class=>"nav-bar-link display" %></li>
     <% end %>
  </ul>
  <div  id="nav-bar-btn" class="nav-button display">
-  <div class="nav-button-line display"></div>
-  <div class="nav-button-line display"></div>
-  <div class="nav-button-line display"></div> 
-
+  <div id="lines-wrapper"class="display-lines display" >
+      <div class="nav-button-line display"></div>
+      <div class="nav-button-line display"></div>
+      <div class="nav-button-line display"></div> 
+    </div>
+    <img src="/assets/close.svg" alt="close navigation bar button" id="nav-bar-x" class="display hide"/>
 </div>
-<img src="/assets/close.svg" alt="close navigation bar button"/>
+
  
 </section>

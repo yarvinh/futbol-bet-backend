@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_29_182126) do
     t.string "competition"
     t.string "status"
     t.boolean "pending", default: true
+    t.integer "league_id"
     t.date "date"
     t.time "time"
     t.datetime "created_at", null: false

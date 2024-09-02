@@ -5,6 +5,7 @@ class TeamsController < ApplicationController
 
    def index
         @teams = Team.all
+        @leagues = League.all
         if admin
          @team
         else
@@ -45,7 +46,10 @@ class TeamsController < ApplicationController
       @team = Team.new(team_params)
       @team.save 
       Tournament.create({league_id: params[:team][:league_id], team_id: @team.id})
-      if @team.valid? && @league
+      if !@league
+         @team.add_error("can't be black")
+         render :new, status: :unprocessable_entity 
+      elsif @team.valid? && @league
          redirect_to league_path(@league), notice: "Team was successfully created." 
       elsif @team.valid?
         redirect_to team_path(@team), notice: "Team was successfully created." 

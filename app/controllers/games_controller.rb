@@ -52,7 +52,7 @@ class GamesController < ApplicationController
 
         respond_to do |format|
           if @game.valid?
-            format.html { redirect_to game_path(@game), notice: "Game was successfully updated." }
+            format.html { redirect_to game_path(@game), notice: "Game was successfully created." }
             format.json { render :show, status: :ok, location: @game }
           else
             format.html { render :new, status: :unprocessable_entity }
