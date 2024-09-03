@@ -20,6 +20,10 @@ class GamesController < ApplicationController
     end
     
     def new 
+        @league = League.find_by_id(params[:league_id])
+        if !@league
+          @league = League.first
+        end
         @user = current_user
         if current_user && current_user.admin
           @game = Game.new
@@ -29,9 +33,12 @@ class GamesController < ApplicationController
     end
 
     def create
+      raise params.inspect
+        @league = league
         @game =  Game.new(game_params)
         @game.time = !params[:game][:date].empty? && Game.time_zone(params[:game][:date])
         @game.date = !params[:game][:date].empty? && Game.date(params[:game][:date])
+        @game.league = league
         @game.save
 
         team_1 = Team.find_by_id(game_params[:team_1])
@@ -104,9 +111,17 @@ class GamesController < ApplicationController
         game.game_bets
         redirect_to '/games'
     end
+    private
+
+    def league
+      @league = League.find_by_id(params[:league_id])
+      if !@league
+        @league = League.first
+      end
+    end
 
     def game_params(*args)
-        params.require(:game).permit(:competition, :team_1, :team_2)
+        params.require(:game).permit(:competition, :team_1, :team_2, :league_id)
     end
 
 end

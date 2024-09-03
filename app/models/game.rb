@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-    belongs_to :legue
+    belongs_to :league
     has_many :bets
     has_many :comments 
     has_many :team_events

@@ -1,34 +1,25 @@
 
-<%= form_with(model: @game , class: "standar-form") do |f| %>
-
+<%= form_with(model: game , class: "standar-form") do |f| %>
   <div class="errors-container">
-  <% if @game.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this game from being saved:</h2>
-      <ul>
-        <% @game.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-</div>
+    <% if game.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+        <ul>
+          <% game.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
 
   <%= f.label :international_competitions %>
-<select name="game[competition]">
-   <option >none</option>
-   <option value="Champion League">Champion League</option>
-   <option value="Euro League">Euro League</option>
-   <option value="Euro Cup">Euro Cup</option>
-   <option value="World Cup">World Cup</option>
-   <option value="Copa America">Copa America</option>
-</select>
-    <br>
+
   <%= f.label :team_1 %>
-  <%= f.collection_select :team_1, Team.all, :id, :fc %> <br>
+  <%= f.collection_select :team_1, league.teams, :id, :fc %> <br>
   
   <%= f.label :team_2 %>
-  <%= f.collection_select :team_2, Team.all, :id, :fc %><br>
+  <%= f.collection_select :team_2, league.teams, :id, :fc %><br>
   
   <%= f.label :date %>
   <%= f.datetime_field :date %> <br>

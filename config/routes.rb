@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   post '/signout',   to: 'sessions#log_out'
   get '/islogged_in',to: 'sessions#show'
   delete '/signout', to: 'sessions#destroy'
+  get "/search_league_teams", to: 'teams#search_league_teams'
 end

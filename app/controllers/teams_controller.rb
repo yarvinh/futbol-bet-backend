@@ -13,6 +13,12 @@ class TeamsController < ApplicationController
         end      
    end
 
+   def search_league_teams
+      @search_league = League.find_by_id(params[:league_id])
+      @game = Game.new
+      redirect_to new_game_path(league_id: @search_league.id, help: true)      
+   end
+
    def edit
       @team = Team.find_by_id(params[:id])
    end
@@ -58,6 +64,12 @@ class TeamsController < ApplicationController
       else
          render :new, status: :unprocessable_entity 
       end
+   end
+
+   def destroy 
+      team = Team.find_by_id(params[:id])
+      team.delete
+      redirect_to teams_path, notice: "Team was successfully destroyed." 
    end
 
    private

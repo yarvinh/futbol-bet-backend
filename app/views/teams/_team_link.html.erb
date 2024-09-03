@@ -1,6 +1,7 @@
 
 <%= link_to  team_path(team), class: "league_links"  do %>
-    <%= image_tag(team.logo_url, class: "team-image") %>
+
+   <img src="<%=team.logo_url%>" class="team-image"/>
     <p>
       <strong><%= team.fc %></strong> -----
       <strong>Stadium: <%= team.stadium %></strong>
@@ -9,13 +10,6 @@
 <%end%>
 
 
-<%= link_to  team_path(team), class: "league_links"  do %>
-    <%= image_tag(team.logo_url, class: "team-image") %>
-    <p>
-      <strong><%= team.fc %></strong> -----
-      <strong>Stadium: <%= team.stadium %></strong>
-    </p>
 
-<%end%>
 
 
