@@ -1,4 +1,16 @@
 
+<script>
+  var handleOnChange = (e)=>{
+      e.target.form.submit();
+  }
+</script>
+
+
+<%=form_with(url: "/search_league_teams" , method: :get, class: "standar-form", id: "game-form") do |f| %>
+    <%= f.label :league %>
+    <%= f.collection_select :league_id, League.all, :id , :name ,{:include_blank => 'Please Select'}, onchange: 'handleOnChange(event)', style: "margin-bottom: 1rem;"%> 
+<%end%>
+
 <%= form_with(model: game , class: "standar-form") do |f| %>
   <div class="errors-container">
     <% if game.errors.any? %>
@@ -13,17 +25,20 @@
     <% end %>
   </div>
 
-  <%= f.label :international_competitions %>
+  <% if league %>
+    <%= f.label :team_1 %>
+    <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => game.teams[0] } %> <br>
+  
+    <%= f.label :team_2 %>
+    <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams[1]} %><br>
+  <% end %>
+  <%= f.hidden_field :league_id, value: league.id %>
 
-  <%= f.label :team_1 %>
-  <%= f.collection_select :team_1, league.teams, :id, :fc %> <br>
-  
-  <%= f.label :team_2 %>
-  <%= f.collection_select :team_2, league.teams, :id, :fc %><br>
-  
   <%= f.label :date %>
-  <%= f.datetime_field :date %> <br>
+  <%= f.date_field :date %> <br>
+  <%= f.label :time %>
+  <%= f.time_field :time %> <br>
  
-  <%= f.submit class: "standar-button"%>
+  <%= f.submit class: "standar-button", remote: true%>
 <% end %>
 

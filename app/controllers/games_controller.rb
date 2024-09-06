@@ -28,37 +28,26 @@ class GamesController < ApplicationController
         if current_user && current_user.admin
           @game = Game.new
         else
-            redirect_to '/login'
+          redirect_to '/login'
         end
     end
 
     def create
-      raise params.inspect
-        @league = league
-        @game =  Game.new(game_params)
-        @game.time = !params[:game][:date].empty? && Game.time_zone(params[:game][:date])
-        @game.date = !params[:game][:date].empty? && Game.date(params[:game][:date])
-        @game.league = league
-        @game.save
-
-        team_1 = Team.find_by_id(game_params[:team_1])
-        team_1_event = TeamEvent.new
-        team_1_event.team = team_1
-        team_1_event.game = @game
-        team_1_event.save
-         
+      # raise params.inspect
+      #   raise params[:game][:league_id].inspect
+        team_1 = Team.find_by_id(game_params[:team_1])  
         team_2 = Team.find(game_params[:team_2])
-        team_2_event = TeamEvent.new
-        team_2_event.team = team_2
-        team_2_event.game = @game
-        team_2_event.save
-
-        if game_params[:competition] === 'none'
-            @game.update(competition: team_1.league)
-        end
+        # @league = League.find_by_id(params[:league_id])
+        # p "testing league from controller create" , @league
+        @game =  Game.new(game_params)
+        @league = League.find_by_id(params[:game][:league_id])
+        # @game.league = league
+      
 
         respond_to do |format|
           if @game.valid?
+            @game.save_teams(team_1,team_2)
+            @game.save
             format.html { redirect_to game_path(@game), notice: "Game was successfully created." }
             format.json { render :show, status: :ok, location: @game }
           else
@@ -71,15 +60,31 @@ class GamesController < ApplicationController
 
     def edit
       @game = Game.find_by_id(params[:id])
+      @league = League.find_by_id(params[:league_id])
+      if !@league
+        @league = @game.league
+        # raise @league.inspect
+      end
+     
     end
 
-    def update    
+    def update 
+      # raise params.inspect
         game = Game.find(params[:id])
+      if current_user.admin && game
+         game.update(game_params)
+        #  game.errors.each{|error|
+        #  raise error.full_message.inspect
+        #  }
+         redirect_to game_path(game)
+      else
         game.update(likes: game.likes + 1)
         render json:GamesSerializer.new(Game.upcoming_games).to_serialized_json
+      end
     end
 
     def destroy
+
         game = Game.find(params[:id])
 
         game.likes.each{|e|e.delete}
@@ -121,7 +126,7 @@ class GamesController < ApplicationController
     end
 
     def game_params(*args)
-        params.require(:game).permit(:competition, :team_1, :team_2, :league_id)
+        params.require(:game).permit(:competition, :team_1, :team_2, :league_id, :date, :time, :league_id)
     end
 
 end

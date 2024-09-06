@@ -7,7 +7,11 @@ class Game < ApplicationRecord
     has_many :replies, through: :comments
     has_many :users, through: :bets
     has_many :teams, through: :team_events
+    validates :date, :time, :presence => true
     attr_accessor :team_1, :team_2, :ninety_minutes
+    validates_with ValidateGameTeams
+
+
     
     def comments_by_date()
         self.comments.reverse{|comment|
@@ -90,6 +94,20 @@ class Game < ApplicationRecord
             }
         end
       end 
-       
     end
+
+
+    def save_teams(team_1,team_2)
+        team_1_event = TeamEvent.new
+        team_1_event.team = team_1
+        team_1_event.game = self
+        team_1_event.save
+       
+        team_2_event = TeamEvent.new
+        team_2_event.team = team_2
+        team_2_event.game = self
+        team_2_event.save
+    end
+
 end
+
