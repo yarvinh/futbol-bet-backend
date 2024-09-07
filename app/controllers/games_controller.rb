@@ -33,16 +33,10 @@ class GamesController < ApplicationController
     end
 
     def create
-      # raise params.inspect
-      #   raise params[:game][:league_id].inspect
         team_1 = Team.find_by_id(game_params[:team_1])  
         team_2 = Team.find(game_params[:team_2])
-        # @league = League.find_by_id(params[:league_id])
-        # p "testing league from controller create" , @league
         @game =  Game.new(game_params)
         @league = League.find_by_id(params[:game][:league_id])
-        # @game.league = league
-      
 
         respond_to do |format|
           if @game.valid?
@@ -63,30 +57,29 @@ class GamesController < ApplicationController
       @league = League.find_by_id(params[:league_id])
       if !@league
         @league = @game.league
-        # raise @league.inspect
       end
      
     end
 
     def update 
-      # raise params.inspect
-        game = Game.find(params[:id])
-      if current_user.admin && game
-         game.update(game_params)
-        #  game.errors.each{|error|
-        #  raise error.full_message.inspect
-        #  }
-         redirect_to game_path(game)
+        team_1 = Team.find_by_id(game_params[:team_1])  
+        team_2 = Team.find(game_params[:team_2])
+        @game = Game.find(params[:id])
+        @game.team_events.each{|team_event| team_event.delete}
+        @game.save_teams(team_1,team_2)
+      if current_user.admin && @game && @game.update(game_params)
+        redirect_to game_path(@game)
+      elsif current_user.admin && @game
+        @league = League.find_by_id(params[:game][:league_id])
+        render :edit, from: "edit", status: :unprocessable_entity
       else
-        game.update(likes: game.likes + 1)
+        @game.update(likes: game.likes + 1)
         render json:GamesSerializer.new(Game.upcoming_games).to_serialized_json
       end
     end
 
     def destroy
-
         game = Game.find(params[:id])
-
         game.likes.each{|e|e.delete}
         game.team_events.each{|e|e.delete}
         game.comments.each{|c| 

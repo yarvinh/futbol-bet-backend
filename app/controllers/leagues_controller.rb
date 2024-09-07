@@ -4,6 +4,11 @@ class LeaguesController < ApplicationController
   # GET /leagues or /leagues.json
   def index
     @leagues = League.all
+   if current_user && current_user.admin
+    @leagues 
+   else
+    render json: @leagues.to_json
+   end
   end
 
   # GET /leagues/1 or /leagues/1.json

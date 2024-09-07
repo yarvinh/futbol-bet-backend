@@ -8,6 +8,7 @@ class GameSerializer
     def to_serialized_json
       options = {
         include: {
+          league: {},
           team_events: {
             include:{
               team: {}

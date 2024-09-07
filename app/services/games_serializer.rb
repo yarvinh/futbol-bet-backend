@@ -9,7 +9,7 @@
   def to_serialized_json
     
       options = {
-        include: [:teams, :bets] ,
+        include: [:teams, :bets,:league] ,
         except: [:updated_at, :created_at]
       }
       @games.to_json(options)

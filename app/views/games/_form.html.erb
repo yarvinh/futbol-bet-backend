@@ -1,19 +1,28 @@
 
 <script>
-  var handleOnChange = (e)=>{
-      e.target.form.submit();
+  var handleOnSubmit = (event) =>{
+    event.preventDefault()
+    return false
+  }
+  var handleOnChange = (event)=>{
+      event.preventDefault()
+      event.target.form.submit()
+      return false
   }
 </script>
 
 
+
 <%=form_with(url: "/search_league_teams" , method: :get, class: "standar-form", id: "game-form") do |f| %>
+    <%= f.hidden_field :game_id, value: game.id %>
     <%= f.label :league %>
     <%= f.collection_select :league_id, League.all, :id , :name ,{:include_blank => 'Please Select'}, onchange: 'handleOnChange(event)', style: "margin-bottom: 1rem;"%> 
-<%end%>
+<%end%> 
 
-<%= form_with(model: game , class: "standar-form") do |f| %>
+<%= form_with(model: game , class: "standar-form", remote: true) do |f| %>
   <div class="errors-container">
     <% if game.errors.any? %>
+    <% p "Testing game errors", game.errors.any? %>
       <div style="color: red">
         <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
         <ul>
@@ -23,17 +32,23 @@
         </ul>
       </div>
     <% end %>
-  </div>
+  </div> 
+ 
+  <% if from == "edit" %>
+    <% league.teams.each do |team| %>
 
-  <% if league %>
-    <%= f.label :team_1 %>
-    <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => game.teams[0] } %> <br>
-  
-    <%= f.label :team_2 %>
-    <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams[1]} %><br>
+    <%end%>
+      <%= f.label :team_1 %>
+      <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => game.teams[0].id} %> <br>
+      <%= f.label :team_2 %>
+      <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams[1].id} %><br>
+  <% else %>
+      <%= f.label :team_1 %>
+      <%= f.collection_select :team_1, league.teams, :id,  :fc%> <br>
+      <%= f.label :team_2 %>
+      <%= f.collection_select :team_2, league.teams, :id,  :fc %><br>
   <% end %>
   <%= f.hidden_field :league_id, value: league.id %>
-
   <%= f.label :date %>
   <%= f.date_field :date %> <br>
   <%= f.label :time %>

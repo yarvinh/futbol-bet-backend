@@ -15,8 +15,13 @@ class TeamsController < ApplicationController
 
    def search_league_teams
       @search_league = League.find_by_id(params[:league_id])
-      @game = Game.new
-      redirect_to new_game_path(league_id: @search_league.id, help: true)      
+      @game = Game.find_by_id(params[:game_id]) 
+      if @game 
+         redirect_to edit_game_path(@game, league_id: @search_league.id, help: true)   
+      else
+         @game = Game.new
+         redirect_to new_game_path(league_id: @search_league.id, help: true) 
+      end    
    end
 
    def edit
