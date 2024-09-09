@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
 
     private
     def secret_key 
-        Rails.application.credentials.dig(:web_token, :secret_key)
+        "bgbygbgybgyhbuhbhubhubuybuhbhubhubghbghgvyvygvgyvgvgyvgyvg"
+        # Rails.application.credentials.dig(:web_token, :secret_key)
     end
 end
