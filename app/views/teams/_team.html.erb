@@ -1,20 +1,30 @@
-<div id="<%= dom_id team %>">
-  <p>
-    <strong>FC:</strong>
-    <%= team.fc %>
-  </p>
+<div id="<%= dom_id team %>" class="box-shadow team-card">
+  
+  
+  <div class="team-inf" >
+      <img src="<%=team.logo_url%>" style=""/>
+      <p>
+        <strong><%= team.fc %></strong>
+      </p>
+  </div>
+  <div>
+      <p>
+        <strong>Stadium:</strong>
+        <%= team.stadium %>
+      </p>
+  </div>
 
-  <p>
-    <strong>League:</strong>
-    <%= team.league %>
-  </p>
+  <div>
+    <h3>Competitions</h3>
+    <ul>
+      <% team.leagues.each do |league| %>
+        <li style="list-style-type: none;"><%=link_to league.name , league_path(league) %></strong></li>
+      <% end %>
+    </ul>
+  </div>
 
-  <p>
-    <strong>Stadium:</strong>
-    <%= team.stadium %>
-  </p>
 
-  <img src="<%=team.logo_url%>" class="team-image"/>
+
 
 </div>
 

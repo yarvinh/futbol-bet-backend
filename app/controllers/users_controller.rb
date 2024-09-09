@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   
       def create  
         @user = User.create(user_params)
+        # raise params.inspect
         if @user.valid? && @user.admin
           login!
           redirect_to '/'

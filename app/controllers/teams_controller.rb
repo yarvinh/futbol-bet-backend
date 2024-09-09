@@ -4,13 +4,16 @@ class TeamsController < ApplicationController
    end
 
    def index
-        @teams = Team.all
-        @leagues = League.all
-        if admin
-         @team
-        else
+      @teams = Team.all
+      if admin
+         @leagues = League.all
+      elsif params[:league_id] != "all"
+         league = League.find_by_id(params[:league_id])
+         render json:TeamsSerializer.new(league.teams).to_serialized_json 
+      else
+         @teams = Team.all
          render json:TeamsSerializer.new(@teams).to_serialized_json 
-        end      
+      end   
    end
 
    def search_league_teams

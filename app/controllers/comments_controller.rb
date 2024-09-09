@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
             like.delete
           }
         }
-        comment.images.each{|e|e.delete}
+        comment.images.each{|e|e.destroy}
         comment.replies.each{|e|e.delete}
         comment.likes.each{|e|e.delete}
         comment.delete

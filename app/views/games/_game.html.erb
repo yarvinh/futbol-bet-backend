@@ -20,7 +20,7 @@
         </div>
     <%end%>
     <div class="flex-column-center">
-      <%= link_to "Comments: #{game.comments.size}" , "http://localhost:3001/games/#{game.id}", style: "text-decoration: none; color:white;"%>
+      <%= link_to "Comments: #{game.comments.size}" , "http://localhost:3001/games/#{game.id}",target: "_blank", style: "text-decoration: none; color:white;"%>
       <p style="text-align: center; color:white;"><strong> Likes: <%= game.likes.size%></strong></p>
     </div>
     <%= link_to "Edit this game", edit_game_path(game) , class: "standar_links" , style: "width: 160px"%>

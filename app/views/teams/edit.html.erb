@@ -1,10 +1,9 @@
-<h1>Editing league</h1>
-
+<h1 style="text-align: center;">Editing Team</h1>
 <%= render "form", team: @team , league: nil%>
 
 <br>
 
 <div>
-  <%= link_to "Show this league", @Team%> |
-  <%= link_to "Back to leagues", teams_path %>
+  <%= link_to "Show this team", @team ,class: "standar_links" ,style:"margin-bottom: 1rem;"%> 
+  <%= link_to "Back to teams", teams_path, class: "standar_links" %>
 </div>
