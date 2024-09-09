@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     
 
     def login!
+        raise secret_key.inspect
         if @user && @user.admin
             session[:user_id] = @user.id
         elsif @user
@@ -50,7 +51,7 @@ class ApplicationController < ActionController::Base
     end
 
     private
-    def secret_key
+    def secret_key 
         Rails.application.credentials.dig(:web_token, :secret_key)
     end
 end
