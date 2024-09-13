@@ -33,12 +33,11 @@ class Game < ApplicationRecord
        Date.parse(d)
     end
 
-    def time=(time)
-      if !time.empty? 
-        write_attribute(:time, Time.parse(time))
-        # self[:time] = Time.parse(time)  
-      end
-    end
+    # def time=(time)
+    #   if !time.empty? 
+    #     write_attribute(:time, Time.parse(time))
+    #   end
+    # end
 
     def game_date
         self.date === Date.today
