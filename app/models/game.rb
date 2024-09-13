@@ -36,11 +36,8 @@ class Game < ApplicationRecord
     end
 
     def time=(time)
-      
       if !time.empty? 
-        new_time = time.to_time
-        p "testing time", new_time
-        write_attribute(:time,   new_time  )
+        write_attribute(:time,Time.parse(time))
       end
     end
 

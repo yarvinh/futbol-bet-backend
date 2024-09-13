@@ -1,6 +1,9 @@
 class TeamsController < ApplicationController
    def show
       @team = Team.find_by_id(params[:id])
+      if !admin
+         render json:TeamSerializer.new(@team).to_serialized_json 
+      end
    end
 
    def index
