@@ -1,3 +1,4 @@
+require 'time'
 class Game < ApplicationRecord
     self.skip_time_zone_conversion_for_attributes = [:start_time]
     belongs_to :league
@@ -36,7 +37,7 @@ class Game < ApplicationRecord
 
     def time=(time)
       if !time.empty? 
-        write_attribute(:time, Time.parse(time))
+        write_attribute(:time, Time.at(Time.parse(time)))
       end
     end
 
