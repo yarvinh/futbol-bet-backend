@@ -35,7 +35,8 @@ class Game < ApplicationRecord
 
     def time=(time)
       if !time.empty? 
-        self[:time] = Time.parse(time)  
+        write_attribute(:time, Time.parse(time))
+        # self[:time] = Time.parse(time)  
       end
     end
 
