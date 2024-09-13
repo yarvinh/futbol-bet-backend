@@ -34,7 +34,7 @@ class Game < ApplicationRecord
     end
 
     def time=(time)
-      if !time.empty?
+      if !time.empty? 
         self[:time] = Time.parse(time)  
       end
     end
