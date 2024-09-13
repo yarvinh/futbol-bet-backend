@@ -6,7 +6,15 @@ class TeamSerializer
   def to_serialized_json
       options = {
         except: [:updated_at, :created_at],
-        include: [:games]
+        include: {
+          games: {
+            include:{
+              league: {},
+              teams: {},
+              bets: {}
+            }
+          }
+        }
       }
       @team.to_json(options)
     end
