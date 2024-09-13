@@ -1,24 +1,37 @@
-<div class="box-shadow card">
+<div class="box-shadow card flex">
    <div class="card-header">
         <h3> <%=game.status%></h3>
-        <h3><%=game.team_events[0].team.fc%> VS <%= game.team_events[1].team.fc%></h3>
+        <h3>
+        <% game.teams.each_with_index do |team, index| %>
+            <% if index == 1 %>
+                VS 
+            <% end %>
+            <%= team.fc %> 
+        <% end %>
+        </h3>
         <p> Date: <%= game.date %> Time: <%= game.time %> </p>
     </div>
-    <%if game.team_events[0].points === 0 && game.team_events[1].points === 0 && game.pending%>
-        <h3 style="text-align: center;"> 
-          <strong>Winner? </strong>
-        </h3>
-        <div class="select-winner">
-            <%game.team_events.each do |event| %>
-                <%= button_to event.team.fc, {:controller => :team_events, :action => 'update', :id => event.id }, :method => :patch, class: "blue-btn" %>
-            <% end %>
-            <%= button_to "Tie  ", {:controller => :games, :action => 'close_event', :id => game.id }, :method => :patch , class: "blue-btn" %>
-        </div>
-    <% else%>
-        <div class="select-winner">
-           <%= button_to "Reset Result", {:controller => :team_events, :action => 'reset_event', :game_id => game.id }, :method => :patch , class: "blue-btn"%>
-        </div>
-    <%end%>
+
+
+    <!-- <div>
+        <%if game.team_events[0].points === 0 && game.team_events[1].points === 0 && game.pending%>
+            <h3 style="text-align: center;"> 
+            <strong>Winner? </strong>
+            </h3>
+            <div class="select-winner">
+                <%game.team_events.each do |event| %>
+                    <%= button_to event.team.fc, {:controller => :team_events, :action => 'update', :id => event.id }, :method => :patch, class: "blue-btn" %>
+                <% end %>
+                <%= button_to "Tie  ", {:controller => :games, :action => 'close_event', :id => game.id }, :method => :patch , class: "blue-btn" %>
+            </div>
+        <% else%>
+            <div class="select-winner">
+            <%= button_to "Reset Result", {:controller => :team_events, :action => 'reset_event', :game_id => game.id }, :method => :patch , class: "blue-btn"%>
+            </div>
+        <%end%> 
+    </div> -->
+
+
     <div class="flex-column-center">
       <%= link_to "Comments: #{game.comments.size}" , "http://localhost:3001/games/#{game.id}",target: "_blank", style: "text-decoration: none; color:white;"%>
       <p style="text-align: center; color:white;"><strong> Likes: <%= game.likes.size%></strong></p>

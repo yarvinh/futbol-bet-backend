@@ -33,6 +33,12 @@ class Game < ApplicationRecord
        Date.parse(d)
     end
 
+    def time=(time)
+      if !time.empty?
+        self[:time] = Time.parse(time)  
+      end
+    end
+
     def game_date
         self.date === Date.today
     end

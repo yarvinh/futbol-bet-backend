@@ -39,9 +39,9 @@
 
     <%end%>
       <%= f.label :team_1 %>
-      <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => game.teams[0].id} %> <br>
+      <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => !game.teams.empty? ? game.teams[0].id : ''} %> <br>
       <%= f.label :team_2 %>
-      <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams[1].id} %><br>
+      <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams.size > 1 ? game.teams[1].id : ""} %><br>
   <% else %>
       <%= f.label :team_1 %>
       <%= f.collection_select :team_1, league.teams, :id,  :fc%> <br>
