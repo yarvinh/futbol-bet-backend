@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+    self.skip_time_zone_conversion_for_attributes = [:start_time]
     belongs_to :league
     has_many :bets
     has_many :comments 
@@ -33,11 +34,11 @@ class Game < ApplicationRecord
        Date.parse(d)
     end
 
-    # def time=(time)
-    #   if !time.empty? 
-    #     write_attribute(:time, Time.parse(time))
-    #   end
-    # end
+    def time=(time)
+      if !time.empty? 
+        write_attribute(:time, Time.parse(time))
+      end
+    end
 
     def game_date
         self.date === Date.today

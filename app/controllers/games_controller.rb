@@ -34,12 +34,9 @@ class GamesController < ApplicationController
 
     def create
         
-        time = params[:game][:time]
-        !time.empty? ? time = Time.parse(time) : time = nil
         team_1 = Team.find_by_id(game_params[:team_1])  
         team_2 = Team.find(game_params[:team_2])
         @game =  Game.new(game_params)
-        @game.time = time
         @league = League.find_by_id(params[:game][:league_id])
 
         respond_to do |format|
@@ -123,7 +120,7 @@ class GamesController < ApplicationController
     end
 
     def game_params(*args)
-        params.require(:game).permit(:competition, :team_1, :team_2, :league_id, :date, :league_id)
+        params.require(:game).permit(:competition, :team_1, :team_2, :league_id, :date, :time, :league_id)
     end
 
 end
