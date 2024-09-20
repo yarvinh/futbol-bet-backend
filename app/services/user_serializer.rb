@@ -6,6 +6,7 @@ class UserSerializer
     def to_serialized_json
         options = {
             include: {
+                bets: {},
                 image: {
                     only: [:user_id],
                     methods: :image_url

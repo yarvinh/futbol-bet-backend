@@ -98,10 +98,12 @@ class GamesController < ApplicationController
     end
 
     def close_event
+
         game = Game.find_by_id(params[:id])
         if game
-            game.pending = false
-            game.save
+          game.update_attribute(:pending, false)
+          game.update_attribute(:status, "finished")
+          game.save
             game.team_events.each{|t|
               t.points = 1
               t.save

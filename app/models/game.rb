@@ -66,6 +66,11 @@ class Game < ApplicationRecord
         }
     end
 
+    def winner 
+      winner = self.team_events.find_by(points: 3)
+      winner ? winner.team : false
+    end
+
     def game_bets
       loser =  self.team_events.find_by(points: 0) 
       winner = self.team_events.find_by(points: 3) 

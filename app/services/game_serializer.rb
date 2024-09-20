@@ -7,6 +7,7 @@ class GameSerializer
 
     def to_serialized_json
       options = {
+        methods: [:winner ],
         include: {
           league: {},
           team_events: {
