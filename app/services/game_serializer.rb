@@ -18,7 +18,6 @@ class GameSerializer
           teams: {},
           likes: {}
         },
-   
         except: [:updated_at, :created_at]
       }
       @game.to_json(options)
