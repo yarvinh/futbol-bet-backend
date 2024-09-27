@@ -12,7 +12,7 @@
       <li><%= link_to "Login" ,'/login' , :class=>"nav-bar-link display" %></li>
     <% end %>
  </ul>
- <div  id="nav-bar-btn" class="nav-button display">
+ <div  id="nav-bar-btn" class="nav-button display" data-controller='navbutton' data-action="click->navbutton#open">
   <div id="lines-wrapper"class="display-lines display" >
       <div class="nav-button-line display"></div>
       <div class="nav-button-line display"></div>

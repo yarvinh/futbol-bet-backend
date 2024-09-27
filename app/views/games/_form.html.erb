@@ -13,47 +13,47 @@
 
 
 
-<%=form_with(url: "/search_league_teams" , method: :get, class: "standar-form", id: "game-form") do |f| %>
-    <%= f.hidden_field :game_id, value: game.id %>
-    <%= f.label :league %>
-    <%= f.collection_select :league_id, League.all, :id , :name ,{:include_blank => 'Please Select'}, onchange: 'handleOnChange(event)', style: "margin-bottom: 1rem;"%> 
-<%end%> 
+  <%=form_with(url: "/search_league_teams" , method: :get, class: "standar-form", id: "game-form") do |f| %>
+      <%= f.hidden_field :game_id, value: game.id %>
+      <%= f.label :league %>
+      <%= f.collection_select :league_id, League.all, :id , :name ,{:include_blank => 'Please Select'}, onchange: 'handleOnChange(event)', style: "margin-bottom: 1rem;"%> 
+  <%end%> 
 
-<%= form_with(model: game , class: "standar-form", remote: true) do |f| %>
-  <div class="errors-container">
-    <% if game.errors.any? %>
-    <% p "Testing game errors", game.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
-        <ul>
-          <% game.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
+  <%= form_with(model: game , class: "standar-form", remote: true) do |f| %>
+    <div class="errors-container">
+      <% if game.errors.any? %>
+      <% p "Testing game errors", game.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+          <ul>
+            <% game.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div> 
+ 
+    <% if from == "edit" %>
+      <% league.teams.each do |team| %>
+
+      <%end%>
+        <%= f.label :team_1 %>
+        <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => !game.teams.empty? ? game.teams[0].id : ''} %> <br>
+        <%= f.label :team_2 %>
+        <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams.size > 1 ? game.teams[1].id : ""} %><br>
+    <% else %>
+        <%= f.label :team_1 %>
+        <%= f.collection_select :team_1, league.teams, :id,  :fc%> <br>
+        <%= f.label :team_2 %>
+        <%= f.collection_select :team_2, league.teams, :id,  :fc %><br>
     <% end %>
-  </div> 
+    <%= f.hidden_field :league_id, value: league.id %>
+    <%= f.label :date %>
+    <%= f.date_field :date %> <br>
+    <%= f.label :time %>
+    <%= f.time_field :time %> <br>
  
-  <% if from == "edit" %>
-    <% league.teams.each do |team| %>
-
-    <%end%>
-      <%= f.label :team_1 %>
-      <%= f.collection_select :team_1, league.teams, :id,  :fc, {:selected => !game.teams.empty? ? game.teams[0].id : ''} %> <br>
-      <%= f.label :team_2 %>
-      <%= f.collection_select :team_2, league.teams, :id,  :fc, {:selected => game.teams.size > 1 ? game.teams[1].id : ""} %><br>
-  <% else %>
-      <%= f.label :team_1 %>
-      <%= f.collection_select :team_1, league.teams, :id,  :fc%> <br>
-      <%= f.label :team_2 %>
-      <%= f.collection_select :team_2, league.teams, :id,  :fc %><br>
-  <% end %>
-  <%= f.hidden_field :league_id, value: league.id %>
-  <%= f.label :date %>
-  <%= f.date_field :date %> <br>
-  <%= f.label :time %>
-  <%= f.time_field :time %> <br>
- 
-  <%= f.submit class: "standar-button", remote: true%>
+    <%= f.submit class: "standar-button", remote: true%>
 <% end %>
 
